@@ -1,10 +1,9 @@
 class CreateEvents < ActiveRecord::Migration
   def change
     create_table :events do |t|
-      t.datetime :data
-      t.references :users, index: true, foreign_key: true
-      t.references :tags, index: true, foreign_key: true
+      t.datetime :date
       t.references :location, index: true, foreign_key: true
+      t.string :title
 
       t.timestamps null: false
     end

@@ -3,9 +3,7 @@
 one:
   address: MyString
   name: MyString
-  events_id: 
 
 two:
   address: MyString
   name: MyString
-  events_id: 

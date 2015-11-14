@@ -1,5 +1,5 @@
 class Event < ActiveRecord::Base
-  belongs_to :users
-  belongs_to :tags
+  has_many :users
+  has_many :tags, through: :taggings
   belongs_to :location
 end

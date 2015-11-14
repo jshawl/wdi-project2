@@ -1,4 +1,4 @@
 class Tag < ActiveRecord::Base
-  belongs_to :taggings
-  belongs_to :events
+  has_many :taggings
+  has_many :events, through: :taggings
 end

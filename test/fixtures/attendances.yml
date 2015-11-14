@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-  when: 2015-11-14 17:00:42
+  event_id: 
+  user_id: 
+  location_id: 
 
 two:
-  title: MyString
-  when: 2015-11-14 17:00:42
+  event_id: 
+  user_id: 
+  location_id: 

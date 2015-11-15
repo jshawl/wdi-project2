@@ -7,10 +7,6 @@ class TagsController < ApplicationController
     unless existing_tagging
       Tagging.create(event: @event, user:current_user, tag:@tag)
     end
-    # tag = tag_params
-    # tag[:user] => current_user
-    # @tag = Tag.create(tag)
-    # @event.tags << @tag
     redirect_to @event
   end
 

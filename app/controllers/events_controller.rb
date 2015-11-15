@@ -46,6 +46,13 @@ class EventsController < ApplicationController
     redirect_to events_path
   end
 
+  def bail
+    @event = Event.find(params[:id])
+    @attendance = Attendance.find_by(user:current_user,event:@event)
+    @attendance.destroy
+    redirect_to events_path
+  end
+
   private
   def event_params
     params.require(:event).permit(:title,:when)

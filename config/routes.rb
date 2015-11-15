@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     member do
       post :attend
     end
+    member do
+      post :bail
+    end
     resources :tags
     resources :locations
   end

@@ -4,7 +4,11 @@
   <li>
     <p><%= event.title %></p>
     <p><%= event.when %></p>
-    <%= button_to 'Attend', attend_event_path(event), :method => :post %> 
+    <% if Attendance.find_by(user:current_user,event:event) %>
+      <%= button_to 'Bail', bail_event_path(event), :method => :post %>
+    <% else %>
+      <%= button_to 'Attend', attend_event_path(event), :method => :post %>
+    <% end %>
     <!-- <p><#%= event.location.name %></p>
     <p><#%= event.location.address %></p> -->
   </li>

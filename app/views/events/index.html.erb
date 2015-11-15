@@ -2,7 +2,8 @@
 <ul>
   <% @events.each do |event| %>
   <li>
-    <p><%= event.title %></p>
+
+    <p><%= link_to event.title,event %></p>
     <p><%= event.when %></p>
     <% if Attendance.find_by(user:current_user,event:event) %>
       <%= button_to 'Bail', bail_event_path(event), :method => :post %>

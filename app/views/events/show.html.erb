@@ -1,0 +1,12 @@
+<h1><%= @event.title %></h1>
+<h3>At: <%= @event.when %></h3>
+<% if @attendees %>
+<p>Look who's going:</p>
+<ul>
+  <% @attendees.each do |person| %>
+  <li>
+    <%= person.email %>
+  </li>
+  <% end %>
+</ul>
+<% end %>

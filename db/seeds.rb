@@ -12,7 +12,16 @@ u2 = User.create(email:"test2@email.com",password:"password",gender:"f",preferen
 l = Location.create(address:"123 ABC Street", name:"my house")
 l2 = Location.create(address:"somewhere else",name:"dark ass alley")
 e = Event.create(title:"my birthday", when:"9:30pm",location:l)
-e2 = Event.create(title:"experimental drugs", when:"3:00am",location:l2)
+e2 = Event.create(title:"doin stuff", when:"3:00am",location:l2)
+
+t1 = Tag.create(tag:"Banger")
+t2 = Tag.create(tag:"Terrifying")
+t3 = Tag.create(tag:"Burgers")
+
+Tagging.create(event:e,tag:t1)
+Tagging.create(event:e,tag:t3)
+Tagging.create(event:e2,tag:t2)
+Tagging.create(event:e2,tag:t3)
 
 Attendance.create(user:u1,event:e)
 Attendance.create(user:u2,event:e)

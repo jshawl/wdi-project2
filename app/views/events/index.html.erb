@@ -1,0 +1,12 @@
+<% if @events %>
+<ul>
+  <% @events.each do |event| %>
+  <li>
+    <p><%= event.title %></p>
+    <p><%= event.when %></p>
+    <p><%= event.location.name %></p>
+    <p><%= event.location.address %></p>
+  </li>
+  <% end %>
+</ul>
+<% end %>

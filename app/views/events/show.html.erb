@@ -5,8 +5,19 @@
 <ul>
   <% @attendees.each do |person| %>
   <li>
-    <%= person.email %>
+    <%= person.username %>
   </li>
   <% end %>
 </ul>
 <% end %>
+<% if @tags %>
+<p>Tagged as:</p>
+<ul>
+  <% @tags.each do |tag| %>
+  <li>
+    <%= tag.tag %>
+  </li>
+  <% end %>
+</ul>
+<% end %>
+<%= link_to "Add Tag",new_event_tag_path(@event) %>

@@ -8,9 +8,10 @@
 
 u1 = User.create(email:"test@email.com",password:"password",gender:"m",preference:"f",username:"test_guy")
 u2 = User.create(email:"test2@email.com",password:"password",gender:"f",preference:"m",username:"test_gal")
+u3 = User.create(email:"test3@email.com",password:"password",gender:"f",preference:"m",username:"test_girl")
 
 l = Location.create(address:"123 ABC Street", name:"my house")
-l2 = Location.create(address:"somewhere else",name:"dark ass alley")
+l2 = Location.create(address:"999 XYZ Road",name:"dark ass alley")
 e = Event.create(title:"my birthday", when:"9:30pm",location:l)
 e2 = Event.create(title:"doin stuff", when:"3:00am",location:l2)
 
@@ -26,3 +27,4 @@ Tagging.create(event:e2,tag:t3)
 Attendance.create(user:u1,event:e)
 Attendance.create(user:u2,event:e)
 Attendance.create(user:u1,event:e2)
+Attendance.create(user:u3,event:e2)

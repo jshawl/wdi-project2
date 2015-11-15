@@ -31,6 +31,7 @@ class EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     @attendees = @event.users
+    @tags = @event.tags
   end
 
   def update

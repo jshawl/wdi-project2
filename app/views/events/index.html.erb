@@ -4,7 +4,7 @@
   <li>
 
     <p><%= link_to event.title,event %></p>
-    <p><%= event.when %></p>
+    <p><%= event.when.strftime("at%l:%M%p") %></p>
     <% if Attendance.find_by(user:current_user,event:event) %>
       <%= button_to 'Bail', bail_event_path(event), :method => :post %>
     <% else %>

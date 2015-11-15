@@ -4,9 +4,14 @@ Rails.application.routes.draw do
   root to: 'events#index'
 
   resources :events do
+    member do
+      post :attend
+    end
     resources :tags
-    resources :locations  
+    resources :locations
   end
+
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.

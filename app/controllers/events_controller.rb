@@ -14,11 +14,14 @@ class EventsController < ApplicationController
   end
 
   def create
-    # @event.
+    @event = Event.create(event_params)
+    @event.location = Location.create(address:"jdfjskf",name:"the basement")
+    @event.users << current_user
+    redirect_to events_path
   end
 
   def new
-    @event.new
+    @event = Event.new
   end
 
   def edit
@@ -35,6 +38,12 @@ class EventsController < ApplicationController
 
   def destroy
     @event = Event.find(params[:id])
+  end
+
+  def attend
+    @event = Event.find(params[:id])
+    @event.users << current_user
+    redirect_to events_path
   end
 
   private

@@ -4,9 +4,11 @@
   <li>
     <p><%= event.title %></p>
     <p><%= event.when %></p>
-    <p><%= event.location.name %></p>
-    <p><%= event.location.address %></p>
+    <%= button_to 'Attend', attend_event_path(event), :method => :post %> 
+    <!-- <p><#%= event.location.name %></p>
+    <p><#%= event.location.address %></p> -->
   </li>
   <% end %>
 </ul>
 <% end %>
+<%= link_to "Add an Event",new_event_path %>

@@ -9,7 +9,8 @@
   <% @attendees.each do |person| %>
   <li>
     <%= person.username %>
-    <!-- <#%= button_to "Follow",follow_user_path(person), :method => :post %> -->
+    <!-- <#%= link_to "Follow",follow_user_path(person), :method => :post %> -->
+    <%= link_to "Follow",follow_user_path(person), :method => :post %>
   </li>
   <% end %>
 </ul>

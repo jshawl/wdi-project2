@@ -29,6 +29,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    session[:event_id] = params[:id]
     @attendees = @event.users
     uniq_tags = @event.tags.uniq{ |t| t }
     @tags = uniq_tags.map{|tg|{tag:tg,count:Tagging.where(event:@event,tag:tg).length}}

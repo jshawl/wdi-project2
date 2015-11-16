@@ -3,7 +3,15 @@
   <%= f.text_field :title %>
 
   <%= f.label :when %>
-  <%= f.text_field :when %>
+  <%= f.time_field :when %>
+
+  <%= f.label :location_id, "where:" %>
+  <%= f.select(:location_id) do %>
+    <% Location.all.each do |l| -%>
+      <%= content_tag(:option, l.name, value: l.id) %>
+    <% end %>
+  <% end %>
+
 
   <%= f.submit %>
 <% end %>

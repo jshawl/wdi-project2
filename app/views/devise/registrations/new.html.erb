@@ -27,6 +27,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :dob, "Birth Date" %><br />
+    <%= f.date_field :dob %>
+  </div>
+
+  <div class="field">
     <%= f.label :gender, "I'm a "%><br />
     <%= f.select :gender, [['guy','m'],['girl','f']]  %>
   </div>

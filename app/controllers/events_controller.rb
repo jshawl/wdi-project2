@@ -15,7 +15,6 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.create(event_params)
-    @event.location = Location.create(address:"jdfjskf",name:"the basement")
     @event.users << current_user
     redirect_to events_path
   end
@@ -58,7 +57,7 @@ class EventsController < ApplicationController
 
   private
   def event_params
-    params.require(:event).permit(:title,:when)
+    params.require(:event).permit(:title,:when,:location_id)
   end
 
 end

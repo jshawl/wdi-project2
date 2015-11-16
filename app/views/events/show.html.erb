@@ -1,5 +1,7 @@
 <h1><%= @event.title %></h1>
-<h3>At: <%= @event.when.strftime("at%l:%M%p") %></h3>
+<h3><%= @event.when.strftime("at%l:%M%p") %></h3>
+<h3><%= @event.location.name %></h3>
+<h3><%= @event.location.address %></h3>
 <%= link_to "back",events_path %>
 <% if @attendees %>
 <p>Look who's going:</p>

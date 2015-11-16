@@ -10,7 +10,11 @@
   <li>
     <%= person.username %>
     <!-- <#%= link_to "Follow",follow_user_path(person), :method => :post %> -->
-    <%= link_to "Follow",follow_user_path(person), :method => :post %>
+    <% if current_user.following.include?(person) %>
+      <%= button_to "Unfollow",unfollow_user_path(person), :method => :post %>
+    <% else %>
+      <%= button_to "Follow",follow_user_path(person), :method => :post %>
+    <% end %>
   </li>
   <% end %>
 </ul>

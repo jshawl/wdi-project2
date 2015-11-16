@@ -15,7 +15,16 @@
 <ul>
   <% @tags.each do |tag| %>
   <li>
-    <%= tag[:tag] %> <%= tag[:count] %>
+    <% if Tagging.find_by(user:current_user,event:@event,tag:tag[:tag]) %>
+      <%= button_to "#{tag[:tag][:tag]} #{tag[:count]}",untag_event_tag_path(@event,tag[:tag]),:method => :post %>
+    <% else %>
+      <%= button_to "#{tag[:tag][:tag]} #{tag[:count]}",duplicate_event_tag_path(@event,tag[:tag]),:method => :post %>
+    <% end %>
+
+
+
+    <!-- <#%= button_to "#{tag[:tag][:tag]} #{tag[:count]}",duplicate_event_tag_path(@event,tag[:tag]),:method => :post %> -->
+    <!-- <#%= tag[:tag][:tag]%> <%= tag[:count] %> -->
   </li>
   <% end %>
 </ul>

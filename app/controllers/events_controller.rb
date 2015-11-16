@@ -31,8 +31,8 @@ class EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     @attendees = @event.users
-    uniq_tags = @event.tags.uniq{ |t| t.tag }
-    @tags = uniq_tags.map{|tg|{tag:tg.tag,count:Tagging.where(event:@event,tag:tg).length}}
+    uniq_tags = @event.tags.uniq{ |t| t }
+    @tags = uniq_tags.map{|tg|{tag:tg,count:Tagging.where(event:@event,tag:tg).length}}
   end
 
   def update

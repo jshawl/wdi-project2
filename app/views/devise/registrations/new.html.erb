@@ -27,13 +27,13 @@
   </div>
 
   <div class="field">
-    <%= f.label :gender %><br />
-    <%= f.text_field :gender %>
+    <%= f.label :gender, "I'm a "%><br />
+    <%= f.select :gender, [['guy','m'],['girl','f']]  %>
   </div>
 
   <div class="field">
-    <%= f.label :preference %><br />
-    <%= f.text_field :preference %>
+    <%= f.label :preference, "who likes "%><br />
+    <%= f.select :preference, [['guys','m'],['girls','f'],['everyone','b']]  %>
   </div>
 
   <div class="actions">

@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
   devise_for :users
-  # devise_for :users, controllers: { registrations: "registrations" }
 
   root to: 'events#index'
 
@@ -12,7 +11,12 @@ Rails.application.routes.draw do
     member do
       post :bail
     end
-    resources :tags
+    resources :tags do
+      member do
+        post :duplicate
+        post :untag
+      end
+    end
     resources :locations
   end
 

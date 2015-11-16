@@ -10,8 +10,8 @@ u1 = User.create(email:"test@email.com",password:"password",gender:"m",preferenc
 u2 = User.create(email:"test2@email.com",password:"password",gender:"f",preference:"m",username:"test_gal",dob:"5/29/1992")
 u3 = User.create(email:"test3@email.com",password:"password",gender:"f",preference:"m",username:"test_girl",dob:"9/9/1985")
 
-l = Location.create(address:"123 ABC Street", name:"My House")
-l2 = Location.create(address:"999 XYZ Road",name:"Cool Bar")
+l = Location.create(address:"2501 Porter St NW, Washington, DC", name:"My House")
+l2 = Location.create(address:"1600 Pennsylvania Ave, Washington DC",name:"Cool Bar")
 e = Event.create(title:"my birthday", when:"9:30pm",location:l)
 e2 = Event.create(title:"doin stuff", when:"3:00am",location:l2)
 

@@ -8,5 +8,7 @@ class User < ActiveRecord::Base
   has_many :events, through: :attendances
   has_many :taggings
   has_many :tags, through: :taggings
+  # has_many :friendships
+  # has_many :users, :source => :friends, through: :friendships
 
 end

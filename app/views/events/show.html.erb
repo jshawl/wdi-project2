@@ -20,11 +20,6 @@
     <% else %>
       <%= button_to "#{tag[:tag][:tag]} #{tag[:count]}",duplicate_event_tag_path(@event,tag[:tag]),:method => :post %>
     <% end %>
-
-
-
-    <!-- <#%= button_to "#{tag[:tag][:tag]} #{tag[:count]}",duplicate_event_tag_path(@event,tag[:tag]),:method => :post %> -->
-    <!-- <#%= tag[:tag][:tag]%> <%= tag[:count] %> -->
   </li>
   <% end %>
 </ul>

@@ -14,10 +14,37 @@ class LocationsController < ApplicationController
     redirect_to events_path
   end
 
+
+  #   @locations = Location.all
+  #   @geojson = Array.new
+  #
+  #   @locations.each do |location|
+  #   @geojson << {
+  #     type: 'Feature',
+  #     geometry: {
+  #       type: 'Point',
+  #       coordinates: [location.longitude, location.latitude]
+  #     },
+  #     properties: {
+  #       name: location.name,
+  #       address: location.address,
+  #       :'marker-color' => '#00607d',
+  #       :'marker-symbol' => 'circle',
+  #       :'marker-size' => 'medium'
+  #     }
+  #   }
+  #   end
+  # 
+  # respond_to do |format|
+  # format.html
+  # format.json { render json: @geojson }  # respond with the created JSON object
+
+end
+
+
   private
   def location_params
     params.require(:location).permit(:name,:address)
   end
-
 
 end

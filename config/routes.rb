@@ -20,6 +20,13 @@ Rails.application.routes.draw do
     resources :locations
   end
 
+  resources :users, only: [] do
+    member do
+      get :following, :followers
+      post :follow, :unfollow
+    end
+  end
+
 
 
 

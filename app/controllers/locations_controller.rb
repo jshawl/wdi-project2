@@ -34,13 +34,10 @@ class LocationsController < ApplicationController
   #     }
   #   }
   #   end
-  # 
+  #
   # respond_to do |format|
   # format.html
   # format.json { render json: @geojson }  # respond with the created JSON object
-
-end
-
 
   private
   def location_params

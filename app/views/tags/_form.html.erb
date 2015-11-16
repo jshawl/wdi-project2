@@ -1,0 +1,6 @@
+<%= form_for [@event,Tag.new] do |f| %>
+  <%= f.label :tag %>
+  <%= f.text_field :tag %>
+
+  <%= f.submit %>
+<% end %>

@@ -1,5 +1,6 @@
 <h1><%= @event.title %></h1>
-<h3>At: <%= @event.when %></h3>
+<h3>At: <%= @event.when.strftime("at%l:%M%p") %></h3>
+<%= link_to "back",events_path %>
 <% if @attendees %>
 <p>Look who's going:</p>
 <ul>
@@ -24,4 +25,5 @@
   <% end %>
 </ul>
 <% end %>
-<%= link_to "Add Tag",new_event_tag_path(@event) %>
+<%= render partial: 'tags/form' %>
+<!-- <#%= link_to "Add Tag",new_event_tag_path(@event) %> -->

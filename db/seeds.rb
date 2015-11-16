@@ -6,9 +6,9 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-u1 = User.create(email:"test@email.com",password:"password",gender:"m",preference:"f",username:"test_guy")
-u2 = User.create(email:"test2@email.com",password:"password",gender:"f",preference:"m",username:"test_gal")
-u3 = User.create(email:"test3@email.com",password:"password",gender:"f",preference:"m",username:"test_girl")
+u1 = User.create(email:"test@email.com",password:"password",gender:"m",preference:"f",username:"test_guy",dob:"3/1/1989")
+u2 = User.create(email:"test2@email.com",password:"password",gender:"f",preference:"m",username:"test_gal",dob:"5/29/1992")
+u3 = User.create(email:"test3@email.com",password:"password",gender:"f",preference:"m",username:"test_girl",dob:"9/9/1985")
 
 l = Location.create(address:"123 ABC Street", name:"my house")
 l2 = Location.create(address:"999 XYZ Road",name:"dark ass alley")

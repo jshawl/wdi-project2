@@ -1,8 +1,31 @@
+<div id='map' style='height:500px;width:500px;'></div>
+<script>
+L.mapbox.accessToken = "pk.eyJ1IjoiY2hhc2VncnViZXIiLCJhIjoidV9tdHNYSSJ9.RRyvDLny4YwDwzPCeOJZrA";
+
+var features = [
+  <% @locations.each do |location| %>
+  { "type": "Feature",
+    "geometry": {"type": "Point", "coordinates": [<%= location.longitude %>, <%= location.latitude %>]},
+    "properties": {
+      "name":"<%= location.name %>",
+      "address":"<%= location.address %>"
+    }
+  },
+<% end %>
+]
+
+var geojson = { "type": "FeatureCollection",
+    "features":features}
+
+L.mapbox.map('map', 'mapbox.streets')
+  .setView([38.91338, -77.03236], 13)
+  .featureLayer.setGeoJSON(geojson);
+
+</script>
 <% if @events %>
 <ul>
   <% @events.each do |event| %>
   <li>
-
     <p><%= link_to event.title,event %></p>
     <p><%= event.when.strftime("at%l:%M%p") %></p>
     <% if Attendance.find_by(user:current_user,event:event) %>

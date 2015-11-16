@@ -11,6 +11,7 @@ class EventsController < ApplicationController
 
   def index
     @events = Event.all
+    @locations = @events.map(&:location) 
   end
 
   def create

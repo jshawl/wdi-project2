@@ -253,7 +253,7 @@ form input[type=checkbox]{
 .list-item:last-of-type{
   border-bottom:none;
 }
-.list-item p{
+.list-item p, .list-item a{
   font-size:1.6rem;
   color:white;
   margin:0.4rem auto;

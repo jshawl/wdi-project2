@@ -63,3 +63,9 @@ end
     :event => Event.all.sample
   )
 end
+
+400.times do
+  follower = User.all.sample
+  followed = User.all.sample
+  Following.find_or_create_by(followed:followed,follower:follower)
+end

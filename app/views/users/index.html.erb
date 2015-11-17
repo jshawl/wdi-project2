@@ -1,0 +1,12 @@
+<div class='list'>
+  <% @users.each do |person| %>
+  <div class='list-item'>
+    <%= link_to person.username,person %>
+    <% if current_user.following.include?(person) %>
+      <%= link_to "Unfollow",unfollow_user_path(person), :method => :post, class:'btn' %>
+    <% else %>
+      <%= link_to "Follow",follow_user_path(person), :method => :post, class:'btn' %>
+    <% end %>
+  </div>
+  <% end %>
+</div>

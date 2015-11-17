@@ -1,0 +1,36 @@
+<h2><%= @user.username %></h2>
+
+<h4>Followers</h4>
+<div class='list'>
+  <% @followers.each do |person| %>
+  <div class='list-item'>
+    <%= link_to person.username,person %>
+    <% if current_user.following.include?(person) %>
+      <%= link_to "Unfollow",unfollow_user_path(person), :method => :post, class:'btn' %>
+    <% else %>
+      <%= link_to "Follow",follow_user_path(person), :method => :post, class:'btn' %>
+    <% end %>
+  </div>
+  <% end %>
+</div>
+<h4>Following</h4>
+<div class='list'>
+  <% @following.each do |person| %>
+  <div class='list-item'>
+    <%= link_to person.username,person %>
+    <% if current_user.following.include?(person) %>
+      <%= link_to "Unfollow",unfollow_user_path(person), :method => :post, class:'btn' %>
+    <% else %>
+      <%= link_to "Follow",follow_user_path(person), :method => :post, class:'btn' %>
+    <% end %>
+  </div>
+  <% end %>
+</div>
+<h4>Events</h4>
+<div class='list'>
+  <% @events.each do |event| %>
+  <p><%= link_to event.title,event,class: 'event-title' %></p>
+  <p><%= event.location.name %></p>
+  <p><%= event.when.strftime("at%l:%M%p") %></p>
+  <% end %>
+</div>

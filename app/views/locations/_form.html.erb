@@ -1,9 +1,5 @@
 <%= form_for Location.new do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-
-  <%= f.label :address %>
-  <%= f.text_field :address %>
-
-  <%= f.submit %>
+  <%= f.text_field :name, placeholder: "Venue Name" %>
+  <%= f.text_field :address, placeholder: "Address" %>
+  <%= f.submit "Add Location" %>
 <% end %>

@@ -1,16 +1,14 @@
 <%= form_for Event.new do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title %>
+  <%= f.text_field :title, placeholder:"What's going on?" %>
 
-  <%= f.label :when %>
-  <%= f.time_field :when %>
-
-  <%= f.label :location_id, "where:" %>
+  <%= f.label :location_id, "Where:" %>
   <%= f.select(:location_id) do %>
     <% Location.all.each do |l| -%>
       <%= content_tag(:option, l.name, value: l.id) %>
     <% end %>
   <% end %>
-
+  <br>
+  <%= f.label :when, "When:" %>
+  <%= f.time_field :when %>
   <%= f.submit %>
 <% end %>

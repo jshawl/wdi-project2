@@ -1,26 +1,52 @@
-<div class='sidepane'>
-<% if @events %>
-<div class='event-list'>
-  <% @events.each do |event| %>
-  <div class='event'>
-    <p><%= link_to event.title,event %></p>
-    <p><%= event.when.strftime("at%l:%M%p") %></p>
-    <% if Attendance.find_by(user:current_user,event:event) %>
-      <%= link_to 'Bail', bail_event_path(event), :method => :post %>
-    <% else %>
-      <%= link_to 'Attend', attend_event_path(event), :method => :post %>
+
+<div class='container'>
+  <div id='newEvent' class='btn'>Create an Event</div>
+  <div class='sidepane'>
+  <% if @events %>
+  <div class='event-list'>
+    <% @events.each do |event| %>
+    <div class='event'>
+      <p><%= link_to event.title,event,class: 'event-title' %></p>
+      <p><%= event.location.name %></p>
+      <p><%= event.when.strftime("at%l:%M%p") %></p>
+      <% if Attendance.find_by(user:current_user,event:event) %>
+        <%= link_to 'Bail', bail_event_path(event), :method => :post, class: "btn" %>
+      <% else %>
+        <%= link_to 'Attend', attend_event_path(event), :method => :post, class: "btn" %>
+      <% end %>
+    </div>
     <% end %>
-    <!-- <p><#%= event.location.name %></p>
-    <p><#%= event.location.address %></p> -->
   </div>
   <% end %>
+  </div>
+  <div id='map'></div>
+  <div class="form-container">
+    <div class='event-form'><%= render partial: "form" %></div>
+    <div class="location-form"><%= render partial: "locations/form" %></div>
+  </div>
+  <div id='newLocation' class='btn'>Add a Location</div>
 </div>
-<% end %>
-<%# render partial: "form" %>
-<%# render partial: "locations/form" %>
-</div>
-<div id='map'></div>
 <script>
+
+var newE = document.getElementById('newEvent');
+var newL = document.getElementById('newLocation');
+var formC = document.querySelector('.form-container');
+newE.addEventListener("click", function(){
+  formC.className = 'form-container show'
+  formC.querySelector('.event-form').style.display="block";
+  formC.querySelector('.location-form').style.display="none";
+});
+newL.addEventListener("click", function(){
+  formC.className = 'form-container show'
+  formC.querySelector('.event-form').style.display="none";
+  formC.querySelector('.location-form').style.display="block";
+});
+var formS = formC.querySelector('input[type=submit]');
+formS.addEventListener("click",function(){
+  formC.className = 'form-container'
+});
+
+
 L.mapbox.accessToken = "pk.eyJ1IjoiY2hhc2VncnViZXIiLCJhIjoidV9tdHNYSSJ9.RRyvDLny4YwDwzPCeOJZrA";
 
 var features = [
@@ -38,7 +64,10 @@ var features = [
 var geojson = { "type": "FeatureCollection",
     "features":features}
 
-L.mapbox.map('map', 'mapbox.streets')
+var map = L.mapbox.map('map', 'mapbox.dark' /*{minZoom:3,maxZoom:18,zoomControl:false}*/)
   .setView([38.91338, -77.03236], 13)
   .featureLayer.setGeoJSON(geojson);
+// new L.Control.Zoom({ position: 'topright'}).addTo(map);
+
+// new L.Control.Zoom({ position: 'topright' }).addTo(map);
 </script>

@@ -18,8 +18,14 @@
 <div id='map'></div>
 <div id='newLocation' class='form-show btn'>Add a Location</div>
 <div class="form-container">
-  <div class='inner-form event-form'><%= render partial: "form" %></div>
-  <div class="inner-form location-form"><%= render partial: "locations/form" %></div>
+  <div class='inner-form event-form'>
+    <%= render partial: "form" %>
+    <a href="#" class='cancel btn'>X</a>
+  </div>
+  <div class="inner-form location-form">
+    <%= render partial: "locations/form" %>
+    <a href="#" class='cancel btn'>X</a>
+  </div>
 </div>
 
 
@@ -28,6 +34,8 @@
 var newE = document.getElementById('newEvent');
 var newL = document.getElementById('newLocation');
 var formC = document.querySelector('.form-container');
+var formS = formC.querySelector('input[type=submit]');
+var cancel = document.querySelectorAll('.cancel');
 newE.addEventListener("click", function(){
   formC.className = 'form-container show'
   formC.querySelector('.event-form').style.display="block";
@@ -38,10 +46,15 @@ newL.addEventListener("click", function(){
   formC.querySelector('.event-form').style.display="none";
   formC.querySelector('.location-form').style.display="block";
 });
-var formS = formC.querySelector('input[type=submit]');
 formS.addEventListener("click",function(){
-  formC.className = 'form-container'
+  formC.className = 'form-container';
 });
+for (var i=0;i<cancel.length;i++){
+  cancel[i].addEventListener("click",function(){
+    formC.className = 'form-container';
+  });
+}
+
 
 //map
 L.mapbox.accessToken = "pk.eyJ1IjoiY2hhc2VncnViZXIiLCJhIjoidV9tdHNYSSJ9.RRyvDLny4YwDwzPCeOJZrA";

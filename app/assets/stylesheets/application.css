@@ -8,7 +8,7 @@ body{
   font-size:62.5%;
   font-family:'Share','arial',sans-serif;
   background:black;
-  background-image: url(site_bg.png);
+  /*background-image: url(site_bg.png);*/
 }
 header{
   background:#000;
@@ -20,16 +20,65 @@ header{
   width:85%;
   margin:3rem auto;
 }
-h1{
+h1,h2,h3,h4{
   font-family:'Quicksand',serif;
-  font-size:6rem;
-  display:inline;
   padding:1rem;
 }
+h1{
+  font-size: 6rem;
+  display:inline;
+}
+h2,h3,h4,p{
+  display:block;
+  padding:0.4rem;
+  color:rgb(255,165,0);
+  text-align: center;
+}
+h2{font-size: 3.2rem}
+h3{font-size: 2.4rem}
+h4{font-size: 2rem}
+p{font-size:1.4rem;}
 .user-buttons{
   float:right;
   padding:1rem;
   padding-right:3rem;
+}
+#tags{
+  text-align:center;
+  width:auto;
+  font-size:1.2rem;
+  padding:0.4rem;
+  background:#666;
+  background:rgba(255,255,255,0.7);
+  border-radius:6px;
+  color:black;
+  font-weight:bold;
+}
+#tag-form{
+  float:right;
+  width:auto;
+  clear:right;
+  text-align: center;
+  border:1px solid red;
+}
+.tag{
+  display:inline-block;
+  float:left;
+  margin:0.4rem;
+}
+#tags form{
+  padding:0;
+  margin:0;
+}
+#tags input{
+  float:left;
+  margin: 0;
+}
+#tags input[type=text]{
+  width:200px;
+}
+#tags input[type=submit]{
+  width:100px;
 }
 .btn{
   width:auto;
@@ -187,13 +236,13 @@ form input[type=checkbox]{
   height:500px;
   float:left;
 }
-.event-list{
+.list{
   position:absolute;
   height:100%;
   width:100%;
   overflow-y: scroll;
 }
-.event{
+.list-item{
   background:#555;
   background:rgba(0,0,0,0.4);
   padding:1rem;
@@ -201,10 +250,10 @@ form input[type=checkbox]{
   border-bottom:2px solid white;
   border-collapse: collapse;
 }
-.event:last-of-type{
+.list-item:last-of-type{
   border-bottom:none;
 }
-.event p{
+.list-item p{
   font-size:1.6rem;
   color:white;
   margin:0.4rem auto;
@@ -246,4 +295,8 @@ form input[type=checkbox]{
   position: relative;
   top: 50%;
   transform: translateY(45%);
+}
+.right{
+  position: absolute;
+  top:0;right:0;
 }

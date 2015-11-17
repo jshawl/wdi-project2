@@ -1,36 +1,55 @@
-<h1><%= @event.title %></h1>
-<h3><%= @event.when.strftime("at%l:%M%p") %></h3>
-<h3><%= @event.location.name %></h3>
-<h3><%= @event.location.address %></h3>
-<%= link_to "back",events_path %>
-<% if @attendees %>
-<p>Look who's going:</p>
-<ul>
-  <% @attendees.each do |person| %>
-  <li>
-    <%= person.username %>
-    <% if current_user.following.include?(person) %>
-      <%= button_to "Unfollow",unfollow_user_path(person), :method => :post %>
-    <% else %>
-      <%= button_to "Follow",follow_user_path(person), :method => :post %>
+<div class="container">
+  <h2><%= @event.title %></h2>
+  <h3><%= @event.location.name %> <%= @event.when.strftime("at%l:%M%p") %></h3>
+  <h4><%= @event.location.address %></h4>
+  <%= link_to "back",events_path, class:'btn right' %>
+  <div id='tags' class='cf'>
+    <% if @tags %>
+    <div>
+      <% @tags.each do |tag| %>
+      <div class='tag'>
+        <% if Tagging.find_by(user:current_user,event:@event,tag:tag[:tag]) %>
+          <% tagC = (tag[:count]>1)? "x#{tag[:count]}": '' %>
+          <%= link_to "#{tag[:tag][:tag]} #{tagC}",untag_event_tag_path(@event,tag[:tag]),
+          :method => :post, class:'btn' %>
+        <% else %>
+          <%= link_to "#{tag[:tag][:tag]} #{tagC}",duplicate_event_tag_path(@event,tag[:tag]),
+          :method => :post, class:'btn' %>
+        <% end %>
+      </div>
+      <% end %>
+    </div>
     <% end %>
-  </li>
-  <% end %>
-</ul>
-<% end %>
-<% if @tags %>
-<p>Tagged as:</p>
-<ul>
-  <% @tags.each do |tag| %>
-  <li>
-    <% if Tagging.find_by(user:current_user,event:@event,tag:tag[:tag]) %>
-      <%= button_to "#{tag[:tag][:tag]} #{tag[:count]}",untag_event_tag_path(@event,tag[:tag]),:method => :post %>
-    <% else %>
-      <%= button_to "#{tag[:tag][:tag]} #{tag[:count]}",duplicate_event_tag_path(@event,tag[:tag]),:method => :post %>
+    <div id="tag-form">
+      <%= render partial: 'tags/form' %>
+    </div>
+  </div>
+  <div class="sidepane">
+    <% if @attendees %>
+    <p>Look who's going:</p>
+    <div class='list'>
+      <% @attendees.each do |person| %>
+      <div class='list-item'>
+        <p><%= person.username %></p>
+        <% if current_user.following.include?(person) %>
+          <%= link_to "Unfollow",unfollow_user_path(person), :method => :post, class:'btn' %>
+        <% else %>
+          <%= link_to "Follow",follow_user_path(person), :method => :post, class:'btn' %>
+        <% end %>
+      </div>
+      <% end %>
+    </div>
     <% end %>
-  </li>
-  <% end %>
-</ul>
-<% end %>
-<%= render partial: 'tags/form' %>
-<!-- <#%= link_to "Add Tag",new_event_tag_path(@event) %> -->
+  </div>
+  <div id='map'></div>
+</div>
+
+<script>
+L.mapbox.accessToken = "pk.eyJ1IjoiY2hhc2VncnViZXIiLCJhIjoidV9tdHNYSSJ9.RRyvDLny4YwDwzPCeOJZrA";
+
+var map = L.mapbox.map('map', 'mapbox.dark' /*{minZoom:3,maxZoom:18,zoomControl:false}*/)
+  .setView([38.91338, -77.03236], 13)
+// new L.Control.Zoom({ position: 'topright'}).addTo(map);
+
+// new L.Control.Zoom({ position: 'topright' }).addTo(map);
+</script>

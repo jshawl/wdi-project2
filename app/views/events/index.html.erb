@@ -3,9 +3,9 @@
   <div id='newEvent' class='btn'>Create an Event</div>
   <div class='sidepane'>
   <% if @events %>
-  <div class='event-list'>
+  <div class='list event-list'>
     <% @events.each do |event| %>
-    <div class='event'>
+    <div class='event list-item'>
       <p><%= link_to event.title,event,class: 'event-title' %></p>
       <p><%= event.location.name %></p>
       <p><%= event.when.strftime("at%l:%M%p") %></p>

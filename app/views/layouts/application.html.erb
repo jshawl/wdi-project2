@@ -4,9 +4,11 @@
   <title>Project2</title>
 
   <link href='https://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
-  <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Raleway:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Share:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Quicksand:400,700' rel='stylesheet' type='text/css'>
 
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <script src='https://api.mapbox.com/mapbox.js/v2.2.3/mapbox.js'></script>
   <link href='https://api.mapbox.com/mapbox.js/v2.2.3/mapbox.css' rel='stylesheet' />
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -14,14 +16,14 @@
 </head>
 <body>
   <header class='cf'>
-    <h1>TITLE</h1>
+    <h1>gather.ing</h1>
     <div class="user-buttons">
       <% if current_user %>
-        <%= link_to 'Signout', destroy_user_session_path, :method => :delete %>
+        <%= link_to 'Sign Out', destroy_user_session_path, :method => :delete %>
         <%= link_to 'Edit my Info', edit_user_registration_path %>
-        <!-- <h4>Welcome, <#%= current_user.username %></h4> -->
+        <h4>Welcome, <%= current_user.username %></h4>
       <% else %>
-        <%= link_to 'Signup', new_user_registration_path %>
+        <%= link_to 'Sign Up', new_user_registration_path %>
         <%= link_to 'Login', new_user_session_path %>
       <% end %>
     </div>
@@ -32,7 +34,8 @@
     <%= yield %>
   </main>
   <footer>
-    A democratic way to make group decisions. &copy; cpgruber.github.io, 2015
+    A democratic way to make group decisions.<br>
+    &copy; <a href="http://cpgruber.github.io" target="_blank">Chase Gruber</a> 2015
   </footer>
 </body>
 </html>

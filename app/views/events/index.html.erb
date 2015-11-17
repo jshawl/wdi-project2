@@ -1,33 +1,30 @@
-
-<div class='container'>
-  <div id='newEvent' class='btn'>Create an Event</div>
-  <div class='sidepane'>
-  <% if @events %>
-  <div class='list event-list'>
-    <% @events.each do |event| %>
-    <div class='event list-item'>
-      <p><%= link_to event.title,event,class: 'event-title' %></p>
-      <p><%= event.location.name %></p>
-      <p><%= event.when.strftime("at%l:%M%p") %></p>
-      <% if Attendance.find_by(user:current_user,event:event) %>
-        <%= link_to 'Bail', bail_event_path(event), :method => :post, class: "btn" %>
-      <% else %>
-        <%= link_to 'Attend', attend_event_path(event), :method => :post, class: "btn" %>
-      <% end %>
-    </div>
+<div id='newEvent' class='form-show btn'>Create an Event</div>
+<% if @events %>
+<div class='list'>
+  <% @events.each do |event| %>
+  <div class='list-item'>
+    <p><%= link_to event.title,event,class:'page-link' %></p>
+    <p><%= event.location.name %></p>
+    <p><%= event.when.strftime("at%l:%M%p") %></p>
+    <% if Attendance.find_by(user:current_user,event:event) %>
+      <%= link_to 'Bail', bail_event_path(event), :method => :post, class: "btn" %>
+    <% else %>
+      <%= link_to 'Attend', attend_event_path(event), :method => :post, class: "btn" %>
     <% end %>
   </div>
   <% end %>
-  </div>
-  <div id='map'></div>
-  <div class="form-container">
-    <div class='event-form'><%= render partial: "form" %></div>
-    <div class="location-form"><%= render partial: "locations/form" %></div>
-  </div>
-  <div id='newLocation' class='btn'>Add a Location</div>
 </div>
-<script>
+<% end %>
+<div id='map'></div>
+<div id='newLocation' class='form-show btn'>Add a Location</div>
+<div class="form-container">
+  <div class='inner-form event-form'><%= render partial: "form" %></div>
+  <div class="inner-form location-form"><%= render partial: "locations/form" %></div>
+</div>
 
+
+<script>
+// form show/hide
 var newE = document.getElementById('newEvent');
 var newL = document.getElementById('newLocation');
 var formC = document.querySelector('.form-container');
@@ -46,7 +43,7 @@ formS.addEventListener("click",function(){
   formC.className = 'form-container'
 });
 
-
+//map
 L.mapbox.accessToken = "pk.eyJ1IjoiY2hhc2VncnViZXIiLCJhIjoidV9tdHNYSSJ9.RRyvDLny4YwDwzPCeOJZrA";
 
 var features = [
@@ -70,16 +67,16 @@ var map = L.mapbox.map('map', 'mapbox.dark',{minZoom:3,maxZoom:18,zoomControl:fa
 new L.Control.Zoom({ position: 'topright' }).addTo(map);
 map.fitBounds(events.getBounds())
 
-var clusters = new L.MarkerClusterGroup({
-    iconCreateFunction: function (cluster) {
-        var markers = cluster.getChildCount();
-        return L.divIcon({html: markers, className: 'eventMarker', iconSize:L.point(20,20)})
-    },
-        spiderfyOnMaxZoom: false,
-        showCoverageOnHover: false,
-        spiderLegPolylineOptions: {weight: 0, color:'#fff'},
-        maxClusterRadius:100
-    });
+// var clusters = new L.MarkerClusterGroup({
+//     iconCreateFunction: function (cluster) {
+//         var markers = cluster.getChildCount();
+//         return L.divIcon({html: markers, className: 'eventMarker', iconSize:L.point(20,20)})
+//     },
+//         spiderfyOnMaxZoom: false,
+//         showCoverageOnHover: false,
+//         spiderLegPolylineOptions: {weight: 0, color:'#fff'},
+//         maxClusterRadius:100
+//     });
 
 //load and style map data
 events.eachLayer(function(pt){
@@ -93,7 +90,7 @@ events.eachLayer(function(pt){
     ).bindPopup(pt.feature.properties.name)
     .addTo(map);
 
-  clusters.addLayer(pt)
+  // clusters.addLayer(pt)
 
   marker.on("touchstart mouseover mousedown click", function(e){
     marker.openPopup();

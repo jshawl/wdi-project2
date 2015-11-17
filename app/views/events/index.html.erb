@@ -1,4 +1,25 @@
-<div id='map' style='height:500px;width:500px;'></div>
+<div class='sidepane'>
+<% if @events %>
+<div class='event-list'>
+  <% @events.each do |event| %>
+  <div class='event'>
+    <p><%= link_to event.title,event %></p>
+    <p><%= event.when.strftime("at%l:%M%p") %></p>
+    <% if Attendance.find_by(user:current_user,event:event) %>
+      <%= link_to 'Bail', bail_event_path(event), :method => :post %>
+    <% else %>
+      <%= link_to 'Attend', attend_event_path(event), :method => :post %>
+    <% end %>
+    <!-- <p><#%= event.location.name %></p>
+    <p><#%= event.location.address %></p> -->
+  </div>
+  <% end %>
+</div>
+<% end %>
+<%# render partial: "form" %>
+<%# render partial: "locations/form" %>
+</div>
+<div id='map'></div>
 <script>
 L.mapbox.accessToken = "pk.eyJ1IjoiY2hhc2VncnViZXIiLCJhIjoidV9tdHNYSSJ9.RRyvDLny4YwDwzPCeOJZrA";
 
@@ -20,26 +41,4 @@ var geojson = { "type": "FeatureCollection",
 L.mapbox.map('map', 'mapbox.streets')
   .setView([38.91338, -77.03236], 13)
   .featureLayer.setGeoJSON(geojson);
-
 </script>
-<% if @events %>
-<ul>
-  <% @events.each do |event| %>
-  <li>
-    <p><%= link_to event.title,event %></p>
-    <p><%= event.when.strftime("at%l:%M%p") %></p>
-    <% if Attendance.find_by(user:current_user,event:event) %>
-      <%= button_to 'Bail', bail_event_path(event), :method => :post %>
-    <% else %>
-      <%= button_to 'Attend', attend_event_path(event), :method => :post %>
-    <% end %>
-    <!-- <p><#%= event.location.name %></p>
-    <p><#%= event.location.address %></p> -->
-  </li>
-  <% end %>
-</ul>
-<% end %>
-<%= render partial: "form" %>
-<%= render partial: "locations/form" %>
-<!-- <%= button_to "add new location",new_location_path %>  -->
-<!-- <#%= link_to "Add an Event",new_event_path %> -->

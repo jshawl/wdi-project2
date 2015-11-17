@@ -8,7 +8,7 @@ body{
   font-size:62.5%;
   font-family:'Share','arial',sans-serif;
   background:black;
-  /*background-image: url(site_bg.png);*/
+  background-image: url(site_bg.png);
 }
 header{
   background:#000;
@@ -271,6 +271,10 @@ form input[type=checkbox]{
 .event-title:hover{
   color:orange;
 }
+.event-info{
+  background:#000;
+  background:rgba(0,0,0,0.7)
+}
 .form-container{
   position:absolute;
   top:0;
@@ -305,4 +309,17 @@ form input[type=checkbox]{
   width:10px;
   border-radius:50%;
   background:rgba(255,165,0,0.5);
+}
+.mycluster {
+    width: 10px;
+    height: 10px;
+    background-color:rgba(60,60,60,0.75);
+    text-align: center;
+    color:white;
+    font-size: 14px;
+    font-weight:bold;
+    border:0px solid red;
+    border-radius:100%;
+    padding-top:0px;
+    font-family:"Merriweather","Garamond","Serif";
 }

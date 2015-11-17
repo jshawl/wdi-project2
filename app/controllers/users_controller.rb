@@ -10,6 +10,9 @@ class UsersController < ApplicationController
 #
   def follow
     @followed = User.find(params[:id])
+    if @followed == current_user
+      redirect_to event_path(session[:event_id])
+    end
     existing_follow = Following.find_by(follower: current_user, followed:@followed)
     unless existing_follow
       Following.create(follower:current_user,followed:@followed)

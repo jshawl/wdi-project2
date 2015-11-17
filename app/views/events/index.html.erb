@@ -64,10 +64,46 @@ var features = [
 var geojson = { "type": "FeatureCollection",
     "features":features}
 
-var map = L.mapbox.map('map', 'mapbox.dark' /*{minZoom:3,maxZoom:18,zoomControl:false}*/)
-  .setView([38.91338, -77.03236], 13)
-  .featureLayer.setGeoJSON(geojson);
-// new L.Control.Zoom({ position: 'topright'}).addTo(map);
+var events = L.geoJson(geojson);
 
-// new L.Control.Zoom({ position: 'topright' }).addTo(map);
+var map = L.mapbox.map('map', 'mapbox.dark',{minZoom:3,maxZoom:18,zoomControl:false})
+new L.Control.Zoom({ position: 'topright' }).addTo(map);
+map.fitBounds(events.getBounds())
+
+var clusters = new L.MarkerClusterGroup({
+    iconCreateFunction: function (cluster) {
+        var markers = cluster.getChildCount();
+        return L.divIcon({html: markers, className: 'eventMarker', iconSize:L.point(20,20)})
+    },
+        spiderfyOnMaxZoom: false,
+        showCoverageOnHover: false,
+        spiderLegPolylineOptions: {weight: 0, color:'#fff'},
+        maxClusterRadius:100
+    });
+
+//load and style map data
+events.eachLayer(function(pt){
+  var marker = L.marker([pt.feature.geometry.coordinates[1],pt.feature.geometry.coordinates[0]])
+    .setIcon(
+      L.divIcon({
+        className: "eventMarker",
+        iconSize:[20,20],
+        popupAnchor:[-3,-10]
+      })
+    ).bindPopup(pt.feature.properties.name)
+    .addTo(map);
+
+  clusters.addLayer(pt)
+
+  marker.on("touchstart mouseover mousedown click", function(e){
+    marker.openPopup();
+  });
+  marker.on("touchend mouseout mouseup", function(e){
+    marker.closePopup();
+  });
+});
+
+
+map.addLayer(clusters)
+
 </script>

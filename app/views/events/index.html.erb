@@ -1,6 +1,6 @@
 <div id='newEvent' class='form-show btn'>Create an Event</div>
 <% if @events %>
-<div class='list'>
+<div class='list dark'>
   <% @events.each do |event| %>
   <div class='list-item'>
     <p><%= link_to event.title,event,class:'page-link' %></p>
@@ -15,9 +15,9 @@
   <% end %>
 </div>
 <% end %>
-<div id='map'></div>
+<div id='map' class='map'></div>
 <div id='newLocation' class='form-show btn'>Add a Location</div>
-<div class="form-container">
+<div class="form-container hide">
   <div class='inner-form event-form'>
     <%= render partial: "form" %>
     <a href="#" class='cancel btn'>X</a>
@@ -27,7 +27,6 @@
     <a href="#" class='cancel btn'>X</a>
   </div>
 </div>
-
 
 <script>
 // form show/hide
@@ -47,18 +46,16 @@ newL.addEventListener("click", function(){
   formC.querySelector('.location-form').style.display="block";
 });
 formS.addEventListener("click",function(){
-  formC.className = 'form-container';
+  formC.className = 'form-container hide';
 });
 for (var i=0;i<cancel.length;i++){
   cancel[i].addEventListener("click",function(){
-    formC.className = 'form-container';
+    formC.className = 'form-container hide';
   });
 }
 
-
 //map
 L.mapbox.accessToken = "pk.eyJ1IjoiY2hhc2VncnViZXIiLCJhIjoidV9tdHNYSSJ9.RRyvDLny4YwDwzPCeOJZrA";
-
 var features = [
   <% @locations.each do |location| %>
   { "type": "Feature",
@@ -112,8 +109,6 @@ events.eachLayer(function(pt){
     marker.closePopup();
   });
 });
-
-
-map.addLayer(clusters)
+// map.addLayer(clusters)
 
 </script>

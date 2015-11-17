@@ -34,6 +34,7 @@ class EventsController < ApplicationController
     }
     uniq_tags = @event.tags.uniq{ |t| t }
     @tags = uniq_tags.map{|tg|{tag:tg,count:Tagging.where(event:@event,tag:tg).length}}
+    @back = :back
   end
 
   def update

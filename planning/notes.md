@@ -13,3 +13,11 @@ As you're invited to an event, you can invite others
 Anyone invited can propose times and places
 Anyone invited can vote on times and places
 One voting deadline is over, app alerts attendees of final plan
+
+
+
+## social yik yak -- upvotes and downvotes
+show tags, upvotes downvotes, and users attending
+if vote threshold is reached, event is gone
+if nobody votes in an hour, event is gone
+--user has to be able to edit event, event must belong to user in model

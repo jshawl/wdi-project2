@@ -1,18 +1,17 @@
-<div class="container">
-  <div class="event-info">
-    <h2><%= @event.title %></h2>
-    <h3><%= @event.location.name %> <%= @event.when.strftime("at%l:%M%p") %></h3>
-    <h4><%= @event.location.address %></h4>
-    <!-- <% @breakdown.each do |k,v| %>
-    <#%= v %>
-    <% end %> -->
-    <%= link_to "back",events_path, class:'btn right' %>
-  </div>
-  <div id='tags' class='cf'>
+<div class="event-info dark">
+  <h2 class='title'><%= @event.title %></h2>
+  <h3 class='info'><%= @event.location.name %> <%= @event.when.strftime("at%l:%M%p") %></h3>
+  <h3 class='info'><%= @event.location.address %></h3>
+  <!-- <% @breakdown.each do |k,v| %>
+  <#%= v %>
+  <% end %> -->
+  <%= link_to "back",@back, class:'btn top-right' %>
+</div>
+  <div id='tags' class='list'>
     <% if @tags %>
     <div>
       <% @tags.each do |tag| %>
-      <div class='tag'>
+      <div class='tag list-item'>
         <% if Tagging.find_by(user:current_user,event:@event,tag:tag[:tag]) %>
           <% tagC = (tag[:count]>1)? "x#{tag[:count]}": '' %>
           <%= link_to "#{tag[:tag][:tag]} #{tagC}",untag_event_tag_path(@event,tag[:tag]),
@@ -47,15 +46,11 @@
     </div>
     <% end %>
   </div>
-  <div id='map'></div>
-</div>
+  <div id='map' class='map'></div>
+
 
 <script>
 L.mapbox.accessToken = "pk.eyJ1IjoiY2hhc2VncnViZXIiLCJhIjoidV9tdHNYSSJ9.RRyvDLny4YwDwzPCeOJZrA";
-
-var map = L.mapbox.map('map', 'mapbox.dark' /*{minZoom:3,maxZoom:18,zoomControl:false}*/)
-  .setView([38.91338, -77.03236], 13)
-// new L.Control.Zoom({ position: 'topright'}).addTo(map);
-
-// new L.Control.Zoom({ position: 'topright' }).addTo(map);
+var map = L.mapbox.map('map', 'mapbox.dark',{minZoom:3,maxZoom:18,zoomControl:false})
+new L.Control.Zoom({ position: 'topright' }).addTo(map);
 </script>

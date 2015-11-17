@@ -52,9 +52,6 @@ input[type=submit]:hover,
   background-color:rgba(0,0,0,0.7);
 }
 .cancel{
-  position:absolute;
-  top:-0.4rem;
-  right:-0.4rem;
   border-radius:50%;
   height:1.6rem;
   width:1.6rem;
@@ -72,9 +69,15 @@ input[type=submit]:hover,
   border-radius:50%;
   background:rgba(255,165,0,0.5);
 }
+.top-right{
+  position:absolute;
+  top:-0.4rem;
+  right:-0.4rem;
+}
 /*layouts/application.html.erb*/
 header{
   padding:1.2rem;
+  min-width:900px;
 }
 .main-title{
   font-size:6rem;
@@ -98,9 +101,9 @@ footer{
   font-size:1.2rem;
   color:orange;
   text-align: center;
+  min-width:900px;
 }
 /*events#index*/
-
 .list{
   float:left;
   clear:left;
@@ -158,14 +161,27 @@ footer{
   top: 50%;
   left:25%;
   width:50%;
-  /*transform: translateX(50%);*/
   transform: translateY(-50%);
+}
+/*event#show*/
+.event-info{
+  text-align: center;
+  padding:1.2rem;
+  color:rgb(255,165,0);
+}
+.title{
+  font-size:3.2rem;
+}
+.info{
+  font-size:2.4rem;
+}
+.right{
+  right:0
 }
 /*forms*/
 form{
   padding:1rem;
   margin: 1rem auto;
-  /*width:50%;*/
   border-radius:10px;
   background:#fff;
   background:rgba(255,255,255,0.4);

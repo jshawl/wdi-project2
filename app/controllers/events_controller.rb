@@ -10,8 +10,8 @@ class EventsController < ApplicationController
 #          DELETE /events/:id(.:format)                          events#destroy
 
   def index
-    @events = Event.all
-    @locations = @events.map(&:location) 
+    @events = Event.all.order(when: :desc)
+    @locations = @events.map(&:location)
   end
 
   def create

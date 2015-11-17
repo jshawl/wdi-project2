@@ -31,7 +31,9 @@ end
 50.times do
   Location.create(
     :address => "#{Faker::Address.street_address} Washington, DC",
-    :name => Faker::Company.name
+    :name => Faker::Company.name,
+    :latitude => (rand * (38.997235-38.840312) + 38.840312),
+    :longitude => (rand * (77.1230767-76.9091637)-77.1230767)
   )
 end
 

@@ -24,6 +24,14 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     session[:event_id] = params[:id]
     @attendees = @event.users.where.not(id:current_user.id)
+    @breakdown = {
+      :mf => @attendees.where(gender:'m',preference:'f').length,
+      :fm => @attendees.where(gender:'f',preference:'m').length,
+      :mm => @attendees.where(gender:'m',preference:'m').length,
+      :ff => @attendees.where(gender:'f',preference:'f').length,
+      :mb => @attendees.where(gender:'m',preference:'b').length,
+      :fb => @attendees.where(gender:'f',preference:'b').length
+    }
     uniq_tags = @event.tags.uniq{ |t| t }
     @tags = uniq_tags.map{|tg|{tag:tg,count:Tagging.where(event:@event,tag:tg).length}}
   end

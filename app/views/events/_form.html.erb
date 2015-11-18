@@ -1,18 +1,9 @@
-<%= form_for @event||Event.new do |e| %>
-  <%= e.text_field :title, placeholder:"What's going on?" %>
+<%= form_for @event||Event.new do |f| %>
+  <%= f.text_field :title, placeholder:"What's going on?" %>
 
-  <%= e.label :location_id, "Where:" %>
-  <%= e.text_field :location_id, id:"location-field",placeholder:"Where?" %>
+  <%= f.text_field :location_id, id:"location-field",placeholder:"Where?" %>
 
-  <!-- <#%= e.select(:location_id) do %>
-    <#% Location.all.each do |l| -%>
-      <#%= content_tag(:option, l.name, value: l.id) %>
-    <#% end %>
-  <#% end %> -->
-
-  <!-- <#%= render :partial => 'locations/form', :locals => { :f => e} %> -->
-
-  <%= e.label :when, "When:" %>
-  <%= e.time_field :when %>
-  <%= e.submit %>
+  <%= f.label :when, "When:" %>
+  <%= f.time_field :when %>
+  <%= f.submit %>
 <% end %>

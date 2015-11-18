@@ -10,7 +10,9 @@ class LocationsController < ApplicationController
   end
 
   def create
-    @location = Location.create(location_params)
+    lat = (rand * (38.997235-38.840312) + 38.840312)
+    lon = (rand * (77.1230767-76.9091637)-77.1230767)
+    @location = Location.create(location_params.merge(latitude:lat,longitude:lon))
     redirect_to events_path
   end
 

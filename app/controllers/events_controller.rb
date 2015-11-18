@@ -82,6 +82,9 @@ class EventsController < ApplicationController
   def downvote
     @event = Event.find(params[:id])
     @event.downvote_by current_user
+    if @event.get_upvotes.size-@event.get_downvotes.size <= -10
+      destroy_by_vote(@event)
+    end
     redirect_to :back
   end
 
@@ -94,6 +97,10 @@ class EventsController < ApplicationController
   private
   def event_params
     params.require(:event).permit(:title,:when,:location_id)
+  end
+
+  def destroy_by_vote(event)
+    @event.destroy
   end
 
 end

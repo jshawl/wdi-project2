@@ -66,7 +66,6 @@
     <a href="#" class='cancel top-right btn'>X</a>
   </div>
 </div>
-<input type="text" id="location-field">
 <script>
 // form show/hide
 var newE = document.getElementById('newEvent');
@@ -153,6 +152,12 @@ events.eachLayer(function(pt){
 </script>
 <script type="text/javascript">
 $(document).ready(function () {
-    $("#location-field").tokenInput("/locations");
+    $("#location-field").tokenInput("/locations",{
+    tokenValue: "id",
+    propertyToSearch: "name",
+    noResultsText: "Can't find a match",
+    searchingText: "Searching...",
+    minChars: 1
+  });
 });
 </script>

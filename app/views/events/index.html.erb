@@ -7,10 +7,28 @@
     <p><%= event.location.name %></p>
     <p><%= event.when.strftime("at%l:%M%p") %></p>
     <% if Attendance.find_by(user:current_user,event:event) %>
-      <%= link_to 'Bail', bail_event_path(event), :method => :post, class: "btn" %>
+      <%= link_to 'Bail', bail_event_path(event), :method => :put, class: "btn" %>
     <% else %>
-      <%= link_to 'Attend', attend_event_path(event), :method => :post, class: "btn" %>
+      <%= link_to 'Attend', attend_event_path(event), :method => :put, class: "btn" %>
     <% end %>
+    <!-- voting -->
+    <% user_vote = "" %>
+    <% if current_user.voted_for?event %>
+      <% if current_user.voted_up_on?event %>
+        <% user_vote='upvoted' %>
+      <% else %>
+        <% user_vote='downvoted' %>
+      <% end %>
+    <% end %>
+    <%= link_to upvote_event_path(event), class:"btn upvote #{user_vote}", method: :put do %>
+      Upvote
+      <%= event.get_upvotes.size %>
+    <% end %>
+    <%= link_to downvote_event_path(event), class:"btn downvote #{user_vote}", method: :put do %>
+      Downvote
+      <%= event.get_downvotes.size %>
+    <% end %>
+    <!-- voting -->
   </div>
   <% end %>
 </div>
@@ -101,13 +119,13 @@ events.eachLayer(function(pt){
     .addTo(map);
 
   // clusters.addLayer(pt)
-
-  marker.on("touchstart mouseover mousedown click", function(e){
-    marker.openPopup();
-  });
-  marker.on("touchend mouseout mouseup", function(e){
-    marker.closePopup();
-  });
+  //
+  // marker.on("touchstart mouseover mousedown click", function(e){
+  //   marker.openPopup();
+  // });
+  // marker.on("touchend mouseout mouseup", function(e){
+  //   marker.closePopup();
+  // });
 });
 // map.addLayer(clusters)
 

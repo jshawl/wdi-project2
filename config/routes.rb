@@ -6,19 +6,19 @@ Rails.application.routes.draw do
 
   resources :events do
     member do
-      post :attend
+      put :attend
     end
     member do
-      post :bail
+      put :bail
     end
     member do
-      post :upvote
+      put :upvote
     end
     member do
-      post :downvote
+      put :downvote
     end
     member do
-      post :unvote
+      put :unvote
     end
     resources :tags do
       member do

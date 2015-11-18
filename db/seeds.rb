@@ -69,3 +69,12 @@ end
   followed = User.all.sample
   Following.find_or_create_by(followed:followed,follower:follower)
 end
+
+User.all.each do |u|
+  10.times do
+    Event.all.sample.upvote_by u
+  end
+  10.times do
+    Event.all.sample.downvote_by u
+  end
+end

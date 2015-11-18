@@ -72,7 +72,8 @@ class EventsController < ApplicationController
 
   def unvote
     @event = Event.find(params[:id])
-    @event.votes_for.where(voter_id:current_user.id).destroy
+    @event.unvote_by current_user
+    redirect_to :back
   end
 
   private

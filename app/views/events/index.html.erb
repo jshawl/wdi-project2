@@ -16,17 +16,34 @@
     <% if current_user.voted_for?event %>
       <% if current_user.voted_up_on?event %>
         <% user_vote='upvoted' %>
+        <%= link_to unvote_event_path(event), class:"btn upv #{user_vote}", method: :put do %>
+          Upvote
+          <%= event.get_upvotes.size %>
+        <% end %>
+        <%= link_to downvote_event_path(event), class:"btn downv #{user_vote}", method: :put do %>
+          Downvote
+          <%= event.get_downvotes.size %>
+        <% end %>
       <% else %>
         <% user_vote='downvoted' %>
+        <%= link_to upvote_event_path(event), class:"btn upv #{user_vote}", method: :put do %>
+          Upvote
+          <%= event.get_upvotes.size %>
+        <% end %>
+        <%= link_to unvote_event_path(event), class:"btn downv #{user_vote}", method: :put do %>
+          Downvote
+          <%= event.get_downvotes.size %>
+        <% end %>
       <% end %>
-    <% end %>
-    <%= link_to upvote_event_path(event), class:"btn upvote #{user_vote}", method: :put do %>
-      Upvote
-      <%= event.get_upvotes.size %>
-    <% end %>
-    <%= link_to downvote_event_path(event), class:"btn downvote #{user_vote}", method: :put do %>
-      Downvote
-      <%= event.get_downvotes.size %>
+    <% else %>
+      <%= link_to upvote_event_path(event), class:"btn upv #{user_vote}", method: :put do %>
+        Upvote
+        <%= event.get_upvotes.size %>
+      <% end %>
+      <%= link_to downvote_event_path(event), class:"btn downv #{user_vote}", method: :put do %>
+        Downvote
+        <%= event.get_downvotes.size %>
+      <% end %>
     <% end %>
     <!-- voting -->
   </div>

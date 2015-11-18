@@ -8,11 +8,12 @@
     <p><%= event.when.strftime("at%l:%M%p") %></p>
     <% if event.owner == current_user %>
       <%= link_to "edit event", edit_event_path(event) %>
+      <%= link_to "delete event", event_path(event), method: :delete %>
     <% end %>
     <% if Attendance.find_by(user:current_user,event:event) %>
-      <%= link_to 'Bail', bail_event_path(event), :method => :put, class: "btn" %>
+      <%= link_to 'Bail', bail_event_path(event), method: :put, class: "btn" %>
     <% else %>
-      <%= link_to 'Attend', attend_event_path(event), :method => :put, class: "btn" %>
+      <%= link_to 'Attend', attend_event_path(event), method: :put, class: "btn" %>
     <% end %>
     <!-- voting -->
     <% user_vote = "" %>

@@ -42,12 +42,20 @@ class EventsController < ApplicationController
 
   def update
     @event = Event.find(params[:id])
+    unless @event.owner == current_user
+      redirect_to @event
+    end
     @event.update(event_params)
     redirect_to events_path
   end
 
   def destroy
     @event = Event.find(params[:id])
+    unless @event.owner == current_user
+      redirect_to @event
+    end
+    @event.destroy
+    redirect_to events_path
   end
 
   def attend

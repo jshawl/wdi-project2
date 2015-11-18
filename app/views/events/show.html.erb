@@ -7,11 +7,14 @@
   <% end %> -->
   <%= link_to "back",@back, class:'btn top-right' %>
 </div>
-  <div id='tags' class='list'>
+  <div id='tags' class='tags dark'>
+    <div id="tag-form">
+      <%= render partial: 'tags/form' %>
+    </div>
     <% if @tags %>
     <div>
       <% @tags.each do |tag| %>
-      <div class='tag list-item'>
+      <div class='tag'>
         <% if Tagging.find_by(user:current_user,event:@event,tag:tag[:tag]) %>
           <% tagC = (tag[:count]>1)? "x#{tag[:count]}": '' %>
           <%= link_to "#{tag[:tag][:tag]} #{tagC}",untag_event_tag_path(@event,tag[:tag]),
@@ -24,9 +27,6 @@
       <% end %>
     </div>
     <% end %>
-    <div id="tag-form">
-      <%= render partial: 'tags/form' %>
-    </div>
   </div>
   <div class="sidepane">
     <% if @attendees %>

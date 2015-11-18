@@ -179,6 +179,34 @@ footer{
 .right{
   right:0
 }
+.tags{
+  width:100%;
+}
+.tag{
+  display:inline;
+}
+#tag-form{
+  float:right;
+}
+#tag-form form{
+  width:auto;
+  display:inline-block;
+  background:none;
+  padding:0;
+}
+#tag-form input{
+  margin:0;
+  width:auto;
+  max-width:200px;
+}
+#tag-form input[type=submit]{
+  border-radius: 50%;
+  width:2.8rem;
+}
+#tag-form div{
+  display:inline;
+  float:left;
+}
 /*forms*/
 form{
   padding:1rem;
@@ -243,6 +271,9 @@ form input[type=submit]{
 .user-form{
   height:50vh;
 }
+
+
+
 /*
 header{
   background:#000;

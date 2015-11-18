@@ -7,7 +7,8 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = Event.create(event_params)
+    @event = Event.create(event_params.merge(owner:current_user))
+    # @event.owner = current_user
     @event.users << current_user
     redirect_to events_path
   end

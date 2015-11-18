@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20151118135958) do
     t.string   "title"
     t.datetime "when"
     t.integer  "location_id"
+    t.integer  "user_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end

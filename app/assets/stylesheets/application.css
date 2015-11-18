@@ -322,9 +322,13 @@ form input[type=submit]{
 }
 .votes div{
   font-size:1.2rem;
-  color:orange;
 }
-
+.pos{
+  color:rgb(255,165,0);
+}
+.neg{
+  color:rgb(255,0,165);
+}
 
 /*
 header{

@@ -7,21 +7,22 @@
     <div class="vote-container">
     <div class='votes'>
       <% diff = event.get_upvotes.size-event.get_downvotes.size %>
+      <% diffClass = (diff<0) ? "neg" : "pos" %>
       <% if current_user.voted_for?event %>
         <% if current_user.voted_up_on?event %>
           <% user_vote='voted' %>
           <%= link_to '',unvote_event_path(event), class:"#{user_vote}", method: :put %>
-          <div><%= diff %></div>
+          <div class="<%= diffClass %>"><%= diff %></div>
           <%= link_to '',downvote_event_path(event), method: :put %>
         <% else %>
           <% user_vote='voted' %>
           <%= link_to '',upvote_event_path(event), method: :put %>
-          <div><%= diff %></div>
+          <div class="<%= diffClass %>"><%= diff %></div>
           <%= link_to '',unvote_event_path(event), class:"#{user_vote}", method: :put %>
         <% end %>
       <% else %>
         <%= link_to '',upvote_event_path(event), method: :put %>
-        <div><%= diff %></div>
+        <div class="<%= diffClass %>"><%= diff %></div>
         <%= link_to '',downvote_event_path(event), method: :put %>
       <% end %>
     </div>
@@ -31,8 +32,8 @@
     <p><%= event.location.name %></p>
     <p><%= event.when.strftime("at%l:%M%p") %></p>
     <% if event.owner == current_user %>
-      <%= link_to "edit event", edit_event_path(event) %>
-      <%= link_to "delete event", event_path(event), method: :delete %>
+      <%= link_to "edit event", edit_event_path(event), class:'btn' %>
+      <%= link_to "delete event", event_path(event), class:'btn', method: :delete %>
     <% end %>
   </div>
   <% end %>

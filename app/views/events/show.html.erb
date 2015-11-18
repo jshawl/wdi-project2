@@ -28,29 +28,75 @@
     </div>
     <% end %>
   </div>
-  <div class="sidepane">
-    <% if @attendees %>
-    <p>Look who's going:</p>
-    <div class='list'>
-      <% @attendees.each do |person| %>
-      <div class='list-item'>
-        <%= link_to person.username,person %>
-        <!-- <p><%= person.username %></p> -->
-        <% if current_user.following.include?(person) %>
-          <%= link_to "Unfollow",unfollow_user_path(person), :method => :post, class:'btn' %>
-        <% else %>
-          <%= link_to "Follow",follow_user_path(person), :method => :post, class:'btn' %>
-        <% end %>
-      </div>
+  <div class='form-show btn'>Look Who's Going</div>
+  <% if @attendees %>
+  <div class='list dark'>
+    <% @attendees.each do |person| %>
+    <div class='list-item'>
+      <p class='person'><%= link_to person.username,person, class:'page-link' %></p>
+      <!-- <p><%= person.username %></p> -->
+      <% if current_user.following.include?(person) %>
+        <%= link_to "Unfollow",unfollow_user_path(person), :method => :post, class:'btn' %>
+      <% else %>
+        <%= link_to "Follow",follow_user_path(person), :method => :post, class:'btn' %>
       <% end %>
     </div>
     <% end %>
   </div>
-  <div id='map' class='map'></div>
+  <% end %>
 
+  <div id='map' class='map'></div>
+  <% if Attendance.find_by(user:current_user,event:@event) %>
+    <%= link_to 'Bail', bail_event_path(@event), method: :put, class: "form-show btn" %>
+  <% else %>
+    <%= link_to 'Attend', attend_event_path(@event), method: :put, class: "form-show btn" %>
+  <% end %>
 
 <script>
+//map
 L.mapbox.accessToken = "pk.eyJ1IjoiY2hhc2VncnViZXIiLCJhIjoidV9tdHNYSSJ9.RRyvDLny4YwDwzPCeOJZrA";
+var features = [
+  { "type": "Feature",
+    "geometry": {"type": "Point", "coordinates": [<%= @event.location.longitude %>, <%= @event.location.latitude %>]},
+    "properties": {
+      "name":"<%= @event.location.name %>",
+      "address":"<%= @event.location.address %>",
+      "this":"yes"
+    }
+  },
+  <% @other_locations.each do |location| %>
+  { "type": "Feature",
+    "geometry": {"type": "Point", "coordinates": [<%= location.longitude %>, <%= location.latitude %>]},
+    "properties": {
+      "name":"<%= location.name %>",
+      "address":"<%= location.address %>",
+      "this":"no"
+    }
+  },
+<% end %>
+]
+
+var geojson = { "type": "FeatureCollection",
+    "features":features}
+
+var events = L.geoJson(geojson);
+
 var map = L.mapbox.map('map', 'mapbox.dark',{minZoom:3,maxZoom:18,zoomControl:false})
 new L.Control.Zoom({ position: 'topright' }).addTo(map);
+map.fitBounds(events.getBounds())
+
+//load and style map data
+events.eachLayer(function(pt){
+  var marker = L.marker([pt.feature.geometry.coordinates[1],pt.feature.geometry.coordinates[0]])
+    .setIcon(
+      L.divIcon({
+        className: (pt.feature.properties.this=='yes')?'thisMarker':'eventMarker',
+        iconSize:(pt.feature.properties.this=='yes')?[30,30]:[10,10],
+        popupAnchor:[-3,-10]
+      })
+    ).bindPopup(pt.feature.properties.name)
+    .addTo(map);
+
+});
+
 </script>

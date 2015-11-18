@@ -70,6 +70,12 @@ input[type=submit]:hover,
   border-radius:50%;
   background:rgba(255,165,0,0.5);
 }
+.thisMarker{
+  height:20px;
+  width:20px;
+  border-radius:50%;
+  background:rgba(255,0,165,0.5);
+}
 .top-right{
   position:absolute;
   top:-0.4rem;
@@ -180,7 +186,7 @@ footer{
   right:0
 }
 .tags{
-  width:100%;
+  margin:2rem;
 }
 .tag{
   display:inline;
@@ -206,6 +212,9 @@ footer{
 #tag-form div{
   display:inline;
   float:left;
+}
+.person{
+  margin-bottom:1rem;
 }
 /*forms*/
 form{

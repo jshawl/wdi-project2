@@ -38,6 +38,8 @@ class EventsController < ApplicationController
     uniq_tags = @event.tags.uniq{ |t| t }
     @tags = uniq_tags.map{|tg|{tag:tg,count:Tagging.where(event:@event,tag:tg).length}}
     @back = :back
+    events = Event.all.where.not(id: params[:id]).order(when: :desc)
+    @other_locations = events.map(&:location)
   end
 
   def update

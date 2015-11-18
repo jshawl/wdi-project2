@@ -8,7 +8,6 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.create(event_params.merge(owner:current_user))
-    # @event.owner = current_user
     @event.users << current_user
     redirect_to events_path
   end
@@ -19,6 +18,9 @@ class EventsController < ApplicationController
 
   def edit
     @event = Event.find(params[:id])
+    unless @event.owner == current_user
+      redirect_to @event
+    end
   end
 
   def show
@@ -40,6 +42,8 @@ class EventsController < ApplicationController
 
   def update
     @event = Event.find(params[:id])
+    @event.update(event_params)
+    redirect_to events_path
   end
 
   def destroy

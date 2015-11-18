@@ -6,6 +6,9 @@
     <p><%= link_to event.title,event,class:'page-link' %></p>
     <p><%= event.location.name %></p>
     <p><%= event.when.strftime("at%l:%M%p") %></p>
+    <% if event.owner == current_user %>
+      <%= link_to "edit event", edit_event_path(event) %>
+    <% end %>
     <% if Attendance.find_by(user:current_user,event:event) %>
       <%= link_to 'Bail', bail_event_path(event), :method => :put, class: "btn" %>
     <% else %>

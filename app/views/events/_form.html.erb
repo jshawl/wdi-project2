@@ -1,4 +1,4 @@
-<%= form_for Event.new do |f| %>
+<%= form_for @event||Event.new do |f| %>
   <%= f.text_field :title, placeholder:"What's going on?" %>
 
   <%= f.label :location_id, "Where:" %>

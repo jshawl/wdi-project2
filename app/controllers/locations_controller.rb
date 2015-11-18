@@ -2,7 +2,7 @@ class LocationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @locations = Location.where("name LIKE ?", "%#{params[:q]}%")
+    @locations = Location.where('name ilike ?',"%#{params[:q]}%")
     respond_to do |format|
       format.html
       format.json { render :json => @locations.map(&:attributes) }

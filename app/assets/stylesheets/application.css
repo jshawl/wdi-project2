@@ -120,10 +120,14 @@ footer{
   overflow-y:scroll;
 }
 .list-item{
+  position:relative;
   padding:0.6rem;
   text-align: center;
   border-bottom:2px solid white;
   border-collapse: collapse;
+}
+.event{
+  padding-left:2.4rem;
 }
 .list-item:last-of-type{
   border-bottom:none;
@@ -280,7 +284,46 @@ form input[type=submit]{
 .user-form{
   height:50vh;
 }
-
+/*votes*/
+.vote-container{
+  position:absolute;
+  top:0;
+  left:0;
+  height:100%;
+}
+.votes{
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.votes a{
+  display:block;
+  height:0;
+  width:0;
+  margin:0 auto;
+  transition:0.5s ease;
+}
+.votes a:first-of-type{
+  border-color:white;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 20px solid rgba(255,255,255,0.7);
+}
+.votes a:last-of-type{
+  border-color:white;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 20px solid rgba(255,255,255,0.7);
+}
+.votes a:hover,
+.votes a.voted{
+  border-top-color: rgb(255,165,0);
+  border-bottom-color: rgb(255,165,0);
+}
+.votes div{
+  font-size:1.2rem;
+  color:orange;
+}
 
 
 /*

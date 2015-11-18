@@ -2,7 +2,31 @@
 <% if @events %>
 <div class='list dark'>
   <% @events.each do |event| %>
-  <div class='list-item'>
+  <div class='list-item event'>
+    <!-- voting -->
+    <div class="vote-container">
+    <div class='votes'>
+      <% diff = event.get_upvotes.size-event.get_downvotes.size %>
+      <% if current_user.voted_for?event %>
+        <% if current_user.voted_up_on?event %>
+          <% user_vote='voted' %>
+          <%= link_to '',unvote_event_path(event), class:"#{user_vote}", method: :put %>
+          <div><%= diff %></div>
+          <%= link_to '',downvote_event_path(event), method: :put %>
+        <% else %>
+          <% user_vote='voted' %>
+          <%= link_to '',upvote_event_path(event), method: :put %>
+          <div><%= diff %></div>
+          <%= link_to '',unvote_event_path(event), class:"#{user_vote}", method: :put %>
+        <% end %>
+      <% else %>
+        <%= link_to '',upvote_event_path(event), method: :put %>
+        <div><%= diff %></div>
+        <%= link_to '',downvote_event_path(event), method: :put %>
+      <% end %>
+    </div>
+    </div>
+    <!-- voting -->
     <p><%= link_to event.title,event,class:'page-link' %></p>
     <p><%= event.location.name %></p>
     <p><%= event.when.strftime("at%l:%M%p") %></p>
@@ -10,41 +34,6 @@
       <%= link_to "edit event", edit_event_path(event) %>
       <%= link_to "delete event", event_path(event), method: :delete %>
     <% end %>
-    <!-- voting -->
-    <% user_vote = "" %>
-    <% if current_user.voted_for?event %>
-      <% if current_user.voted_up_on?event %>
-        <% user_vote='upvoted' %>
-        <%= link_to unvote_event_path(event), class:"btn upv #{user_vote}", method: :put do %>
-          Upvote
-          <%= event.get_upvotes.size %>
-        <% end %>
-        <%= link_to downvote_event_path(event), class:"btn downv #{user_vote}", method: :put do %>
-          Downvote
-          <%= event.get_downvotes.size %>
-        <% end %>
-      <% else %>
-        <% user_vote='downvoted' %>
-        <%= link_to upvote_event_path(event), class:"btn upv #{user_vote}", method: :put do %>
-          Upvote
-          <%= event.get_upvotes.size %>
-        <% end %>
-        <%= link_to unvote_event_path(event), class:"btn downv #{user_vote}", method: :put do %>
-          Downvote
-          <%= event.get_downvotes.size %>
-        <% end %>
-      <% end %>
-    <% else %>
-      <%= link_to upvote_event_path(event), class:"btn upv #{user_vote}", method: :put do %>
-        Upvote
-        <%= event.get_upvotes.size %>
-      <% end %>
-      <%= link_to downvote_event_path(event), class:"btn downv #{user_vote}", method: :put do %>
-        Downvote
-        <%= event.get_downvotes.size %>
-      <% end %>
-    <% end %>
-    <!-- voting -->
   </div>
   <% end %>
 </div>

@@ -1,7 +1,10 @@
 <div class="event-info dark">
   <h2 class='title'><%= @event.title %></h2>
-  <h3 class='info'><%= @event.location.name %> <%= @event.when.strftime("at%l:%M%p") %></h3>
+  <h3 class='info'><%= @event.location.name %> <%= @event.when.strftime("at %l:%M%p") %></h3>
   <h3 class='info'><%= @event.location.address %></h3>
+  <% if @event.owner %>
+  <h3 class='info'>Proposed by: <%= @event.owner.username %></h3>
+  <% end %>
   <!-- <% @breakdown.each do |k,v| %>
   <#%= v %>
   <% end %> -->
@@ -34,7 +37,6 @@
     <% @attendees.each do |person| %>
     <div class='list-item'>
       <p class='person'><%= link_to person.username,person, class:'page-link' %></p>
-      <!-- <p><%= person.username %></p> -->
       <% if current_user.following.include?(person) %>
         <%= link_to "Unfollow",unfollow_user_path(person), :method => :post, class:'btn' %>
       <% else %>
@@ -47,9 +49,9 @@
 
   <div id='map' class='map'></div>
   <% if Attendance.find_by(user:current_user,event:@event) %>
-    <%= link_to 'Bail', bail_event_path(@event), method: :put, class: "form-show btn" %>
+    <%= link_to 'Click to Bail', bail_event_path(@event), method: :put, class: "form-show btn" %>
   <% else %>
-    <%= link_to 'Attend', attend_event_path(@event), method: :put, class: "form-show btn" %>
+    <%= link_to 'Click to Attend', attend_event_path(@event), method: :put, class: "form-show btn" %>
   <% end %>
 
 <script>

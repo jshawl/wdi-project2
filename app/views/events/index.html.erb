@@ -66,7 +66,7 @@
     <a href="#" class='cancel top-right btn'>X</a>
   </div>
 </div>
-
+<input type="text" id="location-field">
 <script>
 // form show/hide
 var newE = document.getElementById('newEvent');
@@ -150,4 +150,9 @@ events.eachLayer(function(pt){
 });
 // map.addLayer(clusters)
 
+</script>
+<script type="text/javascript">
+$(document).ready(function () {
+    $("#location-field").tokenInput("/locations");
+});
 </script>

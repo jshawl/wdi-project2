@@ -36,7 +36,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :locations, only: [:create, :new, :destroy]
+  resources :locations, only: [:index, :create, :new, :destroy]
 
   # resources :followings, only: [:create, :destroy]
 

@@ -1,6 +1,14 @@
 class LocationsController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+    @locations = Location.where("name LIKE ?", "%#{params[:q]}%")
+    respond_to do |format|
+      format.html
+      format.json { render :json => @locations.map(&:attributes) }
+    end
+  end
+
   def create
     @location = Location.create(location_params)
     redirect_to events_path

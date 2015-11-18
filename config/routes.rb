@@ -11,6 +11,15 @@ Rails.application.routes.draw do
     member do
       post :bail
     end
+    member do
+      post :upvote
+    end
+    member do
+      post :downvote
+    end
+    member do
+      post :unvote
+    end
     resources :tags do
       member do
         post :duplicate

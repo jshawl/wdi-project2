@@ -23,6 +23,9 @@ if nobody votes in an hour, event is gone
 
 users#index could return json for searchable like locations#index
 tags#index could return json for searchable like locations#index
+
+users get karma based on the cumulative value of events they propose
+
 users#show should have user, followers and followings, events hosted, events attended
 map should be filterable by tags
 if an hour goes by with no action, event should be destroyed

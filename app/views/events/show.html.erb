@@ -58,21 +58,19 @@
 //map
 L.mapbox.accessToken = "pk.eyJ1IjoiY2hhc2VncnViZXIiLCJhIjoidV9tdHNYSSJ9.RRyvDLny4YwDwzPCeOJZrA";
 var features = [
+
+  <% @events.each do |event| %>
   { "type": "Feature",
-    "geometry": {"type": "Point", "coordinates": [<%= @event.location.longitude %>, <%= @event.location.latitude %>]},
+    "geometry": {"type": "Point", "coordinates": [<%= event.location.longitude %>, <%= event.location.latitude %>]},
     "properties": {
-      "name":"<%= @event.location.name %>",
-      "address":"<%= @event.location.address %>",
-      "this":"yes"
-    }
-  },
-  <% @other_locations.each do |location| %>
-  { "type": "Feature",
-    "geometry": {"type": "Point", "coordinates": [<%= location.longitude %>, <%= location.latitude %>]},
-    "properties": {
-      "name":"<%= location.name %>",
-      "address":"<%= location.address %>",
-      "this":"no"
+      "title":"<%= event.title %>",
+      "event_id":"<%= event.id %>",
+      "location":"<%= event.location.name %>",
+      "address":"<%= event.location.address %>",
+      "time":"<%= event.when.strftime("at%l:%M%p") %>",
+      "tags":[<% event.tags.each do |tag| %>
+          "<%= tag.tag %>",
+        <% end %>]
     }
   },
 <% end %>
@@ -92,8 +90,8 @@ events.eachLayer(function(pt){
   var marker = L.marker([pt.feature.geometry.coordinates[1],pt.feature.geometry.coordinates[0]])
     .setIcon(
       L.divIcon({
-        className: (pt.feature.properties.this=='yes')?'thisMarker':'eventMarker',
-        iconSize:(pt.feature.properties.this=='yes')?[30,30]:[10,10],
+        className: (pt.feature.properties.event_id=="<%= @event.id %>")?'thisMarker':'eventMarker',
+        iconSize:(pt.feature.properties.event_id=="<%= @event.id %>")?[30,30]:[10,10],
         popupAnchor:[-3,-10]
       })
     ).bindPopup(pt.feature.properties.name)

@@ -73,11 +73,19 @@ input[type=submit]:hover,
   border-radius:50%;
   background:rgba(255,165,0,0.5);
 }
-.thisMarker{
+.tagMarker{
   height:20px;
   width:20px;
   border-radius:50%;
   background:rgba(255,0,165,0.5);
+}
+.thisMarker{
+  height:20px;
+  width:20px;
+  border-radius:50%;
+  border-color:rgb(255,0,165);
+  border:2px solid rgba(255,0,165,0.5);
+  background:none;
 }
 .top-right{
   position:absolute;
@@ -217,6 +225,12 @@ footer{
 }
 .tag.right{
   float:right;
+}
+.tag.clicked{
+  background:none;
+  -webkit-box-shadow: inset 0 0 91px 6px rgba(255,0,165,1);
+  -moz-box-shadow: inset 0 0 91px 6px rgba(255,0,165,1);
+  box-shadow: inset 0 0 91px 6px rgba(255,0,165,1);
 }
 #tag-form{
   float:right;

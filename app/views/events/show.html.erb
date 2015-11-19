@@ -68,6 +68,7 @@ var features = [
       "location":"<%= event.location.name %>",
       "address":"<%= event.location.address %>",
       "time":"<%= event.when.strftime("at%l:%M%p") %>",
+      "attendees":"<%= event.users.size %>",
       "tags":[<% event.tags.each do |tag| %>
           "<%= tag.tag %>",
         <% end %>]
@@ -90,7 +91,7 @@ events.eachLayer(function(pt){
   var marker = L.marker([pt.feature.geometry.coordinates[1],pt.feature.geometry.coordinates[0]])
     .setIcon(
       L.divIcon({
-        className: (pt.feature.properties.event_id=="<%= @event.id %>")?'thisMarker':'eventMarker',
+        className: (pt.feature.properties.event_id=="<%= @event.id %>")?'tagMarker':'eventMarker',
         iconSize:(pt.feature.properties.event_id=="<%= @event.id %>")?[30,30]:[10,10],
         popupAnchor:[-3,-10]
       })

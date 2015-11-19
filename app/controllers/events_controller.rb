@@ -5,7 +5,8 @@ class EventsController < ApplicationController
     @events = Event.all.where("created_at >= ?",Time.now.beginning_of_day.in_time_zone("UTC"))
       .where("created_at < ?", Time.now.in_time_zone("UTC"))
       .order(when: :desc)
-
+    att = @events.map{|e| e.users.size}
+    @max = att.max
     @locations = @events.map(&:location)
     today_taggings = Tagging.all.where("created_at >= ?",Time.now.beginning_of_day.in_time_zone("UTC"))
       .where("created_at < ?", Time.now.in_time_zone("UTC"))
@@ -33,7 +34,7 @@ class EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     session[:event_id] = params[:id]
-    @attendees = @event.users.where.not(id:current_user.id)
+    @attendees = @event.users
     @breakdown = {
       :mf => @attendees.where(gender:'m',preference:'f').length,
       :fm => @attendees.where(gender:'f',preference:'m').length,

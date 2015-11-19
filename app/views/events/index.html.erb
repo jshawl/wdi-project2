@@ -105,6 +105,7 @@ var features = [
       "location":"<%= event.location.name %>",
       "address":"<%= event.location.address %>",
       "time":"<%= event.when.strftime("at%l:%M%p") %>",
+      "attendees":"<%= event.users.size %>",
       "tags":[<% event.tags.each do |tag| %>
           "<%= tag.tag %>",
         <% end %>]
@@ -122,19 +123,10 @@ var map = L.mapbox.map('map', 'mapbox.dark',{minZoom:3,maxZoom:18,zoomControl:fa
 new L.Control.Zoom({ position: 'topright' }).addTo(map);
 map.fitBounds(events.getBounds())
 
-// var clusters = new L.MarkerClusterGroup({
-//     iconCreateFunction: function (cluster) {
-//         var markers = cluster.getChildCount();
-//         return L.divIcon({html: markers, className: 'eventMarker', iconSize:L.point(20,20)})
-//     },
-//         spiderfyOnMaxZoom: false,
-//         showCoverageOnHover: false,
-//         spiderLegPolylineOptions: {weight: 0, color:'#fff'},
-//         maxClusterRadius:100
-//     });
-
 function generatePopup(pt){
-  var popup = "<p class='title'>"+pt.feature.properties.title+"</p>";
+  // var popup = "<p class='title'>"+pt.feature.properties.title+"</p>";
+  var popup = "<p class='title'><a href='/events/"+pt.feature.properties.event_id+"'>"
+  popup += pt.feature.properties.title+"</a></p>"
   popup += "<p>"+pt.feature.properties.location+"</p>";
   popup += "<p>"+pt.feature.properties.address+"</p>";
   popup += "<p>"+pt.feature.properties.time+"</p>";
@@ -144,54 +136,64 @@ function generatePopup(pt){
   popup += "</div>"
   return popup
 }
-var ptGrp = L.featureGroup().addTo(map);
+
 var selectedGrp = L.featureGroup().addTo(map);
+var tagGrp = L.featureGroup().addTo(map);
+var ptGrp = L.featureGroup().addTo(map);
 //load and style map data
 events.eachLayer(function(pt){
   var marker = L.marker([pt.feature.geometry.coordinates[1],pt.feature.geometry.coordinates[0]])
     .setIcon(
       L.divIcon({
         className: "eventMarker",
-        iconSize:[20,20],
-        popupAnchor:[-3,-10]
+        iconSize:[
+          5+(parseInt(pt.feature.properties.attendees)/<%= @max %>*30)
+          ,5+(parseInt(pt.feature.properties.attendees)/<%= @max %>*30)
+        ],
+        popupAnchor:[0,-10]
       })
     ).bindPopup(generatePopup(pt))
     .addTo(ptGrp);
 });
 
-function tagHover(){
-  selectedGrp.clearLayers();
+function tagClick(){
+  tagGrp.clearLayers();
+  if ($(this).hasClass('clicked')){
+    $(this).removeClass('clicked');
+    return;
+  }
   var tag = this.getAttribute('tag');
+  $('.tag.clicked').removeClass('clicked');
+  $(this).addClass('clicked');
   events.eachLayer(function(pt){
 
     if (pt.feature.properties.tags.indexOf(tag) !== -1){
       var marker = L.marker([pt.feature.geometry.coordinates[1],pt.feature.geometry.coordinates[0]])
         .setIcon(
           L.divIcon({
-            className: "thisMarker",
-            iconSize:[20,20],
+            className: "tagMarker",
+            iconSize:[
+              5+(parseInt(pt.feature.properties.attendees)/<%= @max %>*30)
+              ,5+(parseInt(pt.feature.properties.attendees)/<%= @max %>*30)
+            ],
             popupAnchor:[0,-10]
           })
         ).bindPopup(generatePopup(pt))
-        .addTo(selectedGrp);
+        .addTo(tagGrp);
     }
   })
-}
-function tagUnhover(){
-  selectedGrp.clearLayers();
 }
 
 function eventHover(){
   selectedGrp.clearLayers();
   var event_id = this.getAttribute('event-id');
   events.eachLayer(function(pt){
-
     if (pt.feature.properties.event_id == event_id){
       var marker = L.marker([pt.feature.geometry.coordinates[1],pt.feature.geometry.coordinates[0]])
         .setIcon(
           L.divIcon({
             className: "thisMarker",
-            iconSize:[20,20],
+            iconSize:[40,40],
             popupAnchor:[0,-10]
           })
         ).bindPopup(generatePopup(pt))
@@ -200,13 +202,11 @@ function eventHover(){
     return;
   })
 }
-
 function eventUnhover(){
   selectedGrp.clearLayers();
 }
 
-$(".tag").on("mouseover", tagHover);
-$(".tag").on("mouseout", tagUnhover);
+$(".tag").on("click", tagClick);
 $(".event").on("mouseover", eventHover);
 $(".event").on("mouseout", eventUnhover);
 

@@ -8,7 +8,24 @@
 body{
   font-size:62.5%;
   font-family:'Share','arial',sans-serif;
-  background-image:url(tex2res4.png);
+  /*background-image:url(tex2res4.png);*/
+  background: -webkit-linear-gradient(
+    rgba(0,0,0,0.55),
+    rgba(0, 0, 0,0.55)),
+  url(tex2res4)repeat;
+  background: -o-linear-gradient(
+    rgba(0,0,0,0.55),
+    rgba(0, 0, 0,0.55)),
+  url(tex2res4)repeat;
+  background: -moz-linear-gradient(
+    rgba(0,0,0,0.55),
+    rgba(0, 0, 0,0.55)),
+  url(tex2res4)repeat;
+  background: linear-gradient(
+    rgba(0,0,0,0.55),
+    rgba(0, 0, 0,0.55)),
+  url(tex2res4)repeat;
+  /*background pattern from subtlepatterns.com*/
 }
 i{
   font-size:1rem;
@@ -116,7 +133,7 @@ main{
 }
 .notifications{
   position:absolute;
-  top:0;
+  top:-25px;
   right:0;
 }
 .notifications p{
@@ -319,7 +336,7 @@ form input[type=submit]{
   margin: 1rem auto;
 }
 .user-form{
-  min-height:50vh;
+  height:50vh;
 }
 /*votes*/
 .vote-container{

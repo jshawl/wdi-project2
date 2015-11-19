@@ -42,13 +42,14 @@ puts "Making 25 events"
   )
 end
 puts "Making 20 tags"
-20.times do
-  Tag.create(:tag => Faker::Lorem.word)
-end
+  Tag.create([{:tag => "bananas"},{:tag => "bonkers"},{:tag => "crazy"},{:tag => "fun"},{:tag => "bad"},{:tag => "awesome"},{:tag => "pretty neat"},{:tag => "hilarios"},{:tag => "drinks"},{:tag => "wasted"},{:tag => "girls"},{:tag => "expensive"},{:tag => "lame"},{:tag => "weird"}])
+# 20.times do
+#   Tag.create(:tag => Faker::Lorem.word)
+# end
 puts "Making 10 instances of tagging per user"
 # 200.times do
 User.all.each do |u|
-  10.times do
+  3.times do
     Tagging.create(
       :event => Event.all.sample,
       :tag => Tag.all.sample,
@@ -73,10 +74,10 @@ puts "Making 400 followings"
 end
 puts "making each user vote"
 User.all.each do |u|
-  10.times do
+  7.times do
     Event.all.sample.upvote_by u
   end
-  4.times do
+  5.times do
     Event.all.sample.downvote_by u
   end
 end

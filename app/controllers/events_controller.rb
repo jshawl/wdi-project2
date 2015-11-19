@@ -6,6 +6,8 @@ class EventsController < ApplicationController
       .where("created_at < ?", Time.now.in_time_zone("UTC"))
       .order(when: :desc)
     att = @events.map{|e| e.users.size}
+    # vote = @events.map{|e| e.get_upvotes.size - e.get_downvotes.size}
+    # t = @events.map{|e| e.votes_for.size}
     @max = att.max
     @locations = @events.map(&:location)
     today_taggings = Tagging.all.where("created_at >= ?",Time.now.beginning_of_day.in_time_zone("UTC"))
@@ -72,7 +74,7 @@ class EventsController < ApplicationController
   def attend
     @event = Event.find(params[:id])
     @event.users << current_user
-    redirect_to events_path
+    redirect_to @event
   end
 
   def bail

@@ -6,4 +6,10 @@ class Event < ActiveRecord::Base
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
   acts_as_votable
+
+  validates :title, presence: true
+  validates :location, presence: true
+  validates :owner, presence: true
+  validates :when, presence: true
+
 end

@@ -41,8 +41,8 @@ puts "Making 25 events"
     owner:User.all.sample
   )
 end
-puts "Making 200 tags"
-200.times do
+puts "Making 20 tags"
+20.times do
   Tag.create(:tag => Faker::Lorem.word)
 end
 puts "Making 10 instances of tagging per user"

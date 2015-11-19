@@ -1,4 +1,4 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<!-- <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= devise_error_messages! %>
@@ -50,10 +50,40 @@
   <div class="actions">
     <%= f.submit "Update" %>
   </div>
-<% end %>
+<% end %> -->
 
-<h3>Cancel my account</h3>
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
 
-<%= link_to "Back", :back %>
+
+<div class="user-form">
+  <div class="inner-form full-page">
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= devise_error_messages! %>
+      <%= f.label :username %>
+      <%= f.text_field :username,:placeholder => "Username" %>
+      <%= f.label :email %>
+      <%= f.email_field :email,:placeholder => "Email" %>
+      <%= f.label :password %> <i>(leave blank if you don't want to change it)</i>
+      <%= f.password_field :password, autocomplete: "off" %>
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation, autocomplete: "off" %>
+      <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i>
+      <%= f.password_field :current_password, autocomplete: "off" %>
+      <%= f.label :dob, "Date of Birth" %>
+      <%= f.date_field :dob, :prompt => "Date of birth"  %>
+
+      <!-- <#%= f.label :gender, "I'm a"%>
+      <#%= f.select :gender, [['guy','m'],['girl','f']]  %>
+      <#%= f.label :preference, "who likes"%>
+      <#%= f.select :preference, [['girls','f'],['guys','m'],['everyone','b']]  %> -->
+
+      <%= f.submit "Update" %>
+  <% end %>
+  </div>
+</div>
+<div class="user-form">
+  <div class="inner-form full-page">
+    <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %>
+    <%= link_to "Back", :back , class:'btn'%>
+  </div>
+</div>

@@ -1,42 +1,28 @@
 <div class="user-form">
   <div class="inner-form">
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= devise_error_messages! %>
 
-  <!-- <div class="field"> -->
-    <%= f.text_field :username,:placeholder => "Username" %>
-  <!-- </div> -->
+      <%= f.text_field :username,:placeholder => "Username" %>
 
-  <!-- <div class="field"> -->
-    <%= f.email_field :email,:placeholder => "Email" %>
-  <!-- </div> -->
+      <%= f.email_field :email,:placeholder => "Email" %>
 
-  <!-- <div class="field"> -->
-    <% if @minimum_password_length %>
-      <% em = "(#{@minimum_password_length}+ characters)" %>
-    <% end %>
-    <%= f.password_field :password, autocomplete: "off",:placeholder => "Password #{em}"  %>
-  <!-- </div> -->
+      <% if @minimum_password_length %>
+        <% em = "(#{@minimum_password_length}+ characters)" %>
+      <% end %>
+      <%= f.password_field :password, autocomplete: "off",:placeholder => "Password #{em}"  %>
 
-  <!-- <div class="field"> -->
-    <%= f.password_field :password_confirmation, autocomplete: "off",:placeholder => "Confirm password" %>
-  <!-- </div> -->
+      <%= f.password_field :password_confirmation, autocomplete: "off",:placeholder => "Confirm password" %>
 
-  <!-- <div class="field">
-    <#%= f.label :dob, "Birth Date" %><br />
-    <%#= f.date_field :dob, :prompt => "Date of birth"  %>
-   </div> -->
+      <!-- <#%= f.label :dob, "Birth Date" %><br /> -->
+      <!-- <%#= f.date_field :dob, :prompt => "Date of birth"  %> -->
 
-  <!-- <div class="field">
-    <#%= f.label :gender, "I'm a"%>
-    <#%= f.select :gender, [['guy','m'],['girl','f']]  %>
-    <#%= f.label :preference, "who likes"%>
-    <#%= f.select :preference, [['girls','f'],['guys','m'],['everyone','b']]  %>
-  </div> -->
+      <!-- <#%= f.label :gender, "I'm a"%>
+      <#%= f.select :gender, [['guy','m'],['girl','f']]  %>
+      <#%= f.label :preference, "who likes"%>
+      <#%= f.select :preference, [['girls','f'],['guys','m'],['everyone','b']]  %> -->
 
-  <!-- <div class="actions"> -->
-    <%= f.submit "Sign up" %>
-  <!-- </div> -->
-<% end %>
-
-</div></div>
+      <%= f.submit "Sign up" %>
+  <% end %>
+  </div>
+</div>

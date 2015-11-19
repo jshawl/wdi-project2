@@ -10,6 +10,9 @@ body{
   font-family:'Share','arial',sans-serif;
   background-image:url(tex2res4.png);
 }
+i{
+  font-size:1rem;
+}
 /*widely-used*/
 .cf:after{
   content:'';
@@ -103,6 +106,16 @@ main{
   width:85%;
   margin:4rem auto;
 }
+.notifications{
+  position:absolute;
+  top:0;
+  right:0;
+}
+.notifications p{
+  color:white;
+  display:inline;
+  font-size:1.2rem;
+}
 footer{
   padding:1rem;
   font-size:1.2rem;
@@ -173,6 +186,12 @@ footer{
   left:25%;
   width:50%;
   transform: translateY(-50%);
+}
+.full-page{
+  width:50%;
+  transform:none;
+  height:auto;
+  text-align: center;
 }
 /*event#show*/
 .event-info{
@@ -282,7 +301,7 @@ form input[type=submit]{
   margin: 1rem auto;
 }
 .user-form{
-  height:50vh;
+  min-height:50vh;
 }
 /*votes*/
 .vote-container{

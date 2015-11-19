@@ -2,7 +2,9 @@ class EventsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @events = Event.all.order(when: :desc)
+    @events = Event.all.where("created_at >= ?", Time.now.beginning_of_day)
+      .where("created_at < ?", Time.now)
+      .order(when: :desc)
     @locations = @events.map(&:location)
   end
 

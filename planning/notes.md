@@ -15,9 +15,14 @@ Anyone invited can vote on times and places
 One voting deadline is over, app alerts attendees of final plan
 
 
-
-## social yik yak -- upvotes and downvotes
+## map yik yak -- upvotes and downvotes
 show tags, upvotes downvotes, and users attending
 if vote threshold is reached, event is gone
 if nobody votes in an hour, event is gone
 --user has to be able to edit event, event must belong to user in model
+
+users#index could return json for searchable like locations#index
+tags#index could return json for searchable like locations#index
+users#show should have user, followers and followings, events hosted, events attended
+map should be filterable by tags
+if an hour goes by with no action, event should be destroyed

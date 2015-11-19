@@ -95,7 +95,7 @@ events.eachLayer(function(pt){
         iconSize:(pt.feature.properties.event_id=="<%= @event.id %>")?[30,30]:[10,10],
         popupAnchor:[-3,-10]
       })
-    ).bindPopup(pt.feature.properties.name)
+    ).bindPopup(pt.feature.properties.title)
     .addTo(map);
 
 });

@@ -1,3 +1,25 @@
+<% def generateVote event %>
+  <% diff = event.get_upvotes.size-event.get_downvotes.size %>
+  <% diffClass = (diff<0) ? "neg" : "pos" %>
+  <% if current_user.voted_for?event %>
+    <% if current_user.voted_up_on?event %>
+      <% user_vote='voted' %>
+      <%= link_to '',unvote_event_path(event), class:"#{user_vote}", method: :put %>
+      <div class="<%= diffClass %>"><%= diff %></div>
+      <%= link_to '',downvote_event_path(event), method: :put %>
+    <% else %>
+      <% user_vote='voted' %>
+      <%= link_to '',upvote_event_path(event), method: :put %>
+      <div class="<%= diffClass %>"><%= diff %></div>
+      <%= link_to '',unvote_event_path(event), class:"#{user_vote}", method: :put %>
+    <% end %>
+  <% else %>
+    <%= link_to '',upvote_event_path(event), method: :put %>
+    <div class="<%= diffClass %>"><%= diff %></div>
+    <%= link_to '',downvote_event_path(event), method: :put %>
+  <% end %>
+<% end %>
+
 <div id='tags' class='tags dark cf'>
   <% @recent_taggings.each do |tag| %>
   <div class="tag right btn">
@@ -15,27 +37,9 @@
   <% @events.each do |event| %>
   <div class='list-item event'>
     <!-- voting -->
-    <div class="vote-container">
+    <div class="vote-container" id='v<%= event.id %>'>
     <div class='votes'>
-      <% diff = event.get_upvotes.size-event.get_downvotes.size %>
-      <% diffClass = (diff<0) ? "neg" : "pos" %>
-      <% if current_user.voted_for?event %>
-        <% if current_user.voted_up_on?event %>
-          <% user_vote='voted' %>
-          <%= link_to '',unvote_event_path(event), class:"#{user_vote}", method: :put %>
-          <div class="<%= diffClass %>"><%= diff %></div>
-          <%= link_to '',downvote_event_path(event), method: :put %>
-        <% else %>
-          <% user_vote='voted' %>
-          <%= link_to '',upvote_event_path(event), method: :put %>
-          <div class="<%= diffClass %>"><%= diff %></div>
-          <%= link_to '',unvote_event_path(event), class:"#{user_vote}", method: :put %>
-        <% end %>
-      <% else %>
-        <%= link_to '',upvote_event_path(event), method: :put %>
-        <div class="<%= diffClass %>"><%= diff %></div>
-        <%= link_to '',downvote_event_path(event), method: :put %>
-      <% end %>
+      <% generateVote(event) %>
     </div>
     </div>
     <!-- voting -->
@@ -97,6 +101,7 @@ var features = [
     "geometry": {"type": "Point", "coordinates": [<%= event.location.longitude %>, <%= event.location.latitude %>]},
     "properties": {
       "title":"<%= event.title %>",
+      "event_id":"<%= event.id %>",
       "location":"<%= event.location.name %>",
       "address":"<%= event.location.address %>",
       "tags":[<% event.tags.each do |tag| %>
@@ -128,11 +133,16 @@ map.fitBounds(events.getBounds())
 //     });
 
 function generatePopup(pt){
-  console.log(pt);
   var popup = "<p>"+pt.feature.properties.title+"</p>";
   popup += "<p>"+pt.feature.properties.location+"</p>";
   popup += "<p>"+pt.feature.properties.address+"</p>";
-  popup += '<a style="height:10px;width:10px;background:red;" rel="nofollow" data-method="put" href="/events/211/upvote">UPVOTE 211</a>'
+  var vote = document.getElementById('v'+pt.feature.properties.event_id);
+  // console.log(vote.innerHTML);
+  // popup += "<div class='popup votes' style='border:1px solid red'>";
+  popup += vote.innerHTML;
+  // popup += "</div>"
+  // popup += '<a style="height:10px;width:10px;background:red;" rel="nofollow" data-method="put" href="/events/'+pt.feature.properties.event_id+'/upvote">UPVOTE</a>';
+  // popup += '<a style="height:10px;width:10px;background:red;" rel="nofollow" data-method="put" href="/events/'+pt.feature.properties.event_id+'/downvote">downVOTE</a>';
   return popup
 }
 
@@ -147,6 +157,8 @@ events.eachLayer(function(pt){
       })
     ).bindPopup(generatePopup(pt))
     .addTo(map);
+
+    // marker.getContent();
 
   // clusters.addLayer(pt)
   //

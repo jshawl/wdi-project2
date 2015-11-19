@@ -133,7 +133,7 @@ map.fitBounds(events.getBounds())
 //     });
 
 function generatePopup(pt){
-  var popup = "<p>"+pt.feature.properties.title+"</p>";
+  var popup = "<p class='title'>"+pt.feature.properties.title+"</p>";
   popup += "<p>"+pt.feature.properties.location+"</p>";
   popup += "<p>"+pt.feature.properties.address+"</p>";
   var vote = document.getElementById('v'+pt.feature.properties.event_id);

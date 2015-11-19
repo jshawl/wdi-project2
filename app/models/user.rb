@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :attendances
+  has_many :attendances, dependent: :destroy
   has_many :events, through: :attendances
   has_many :taggings
   has_many :tags, through: :taggings

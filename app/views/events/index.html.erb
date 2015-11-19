@@ -9,7 +9,6 @@
   <% end %>
 </div>
 
-
 <div id='newEvent' class='form-show btn'>Create an Event</div>
 <% if @events %>
 <div class='list dark'>
@@ -93,12 +92,16 @@ for (var i=0;i<cancel.length;i++){
 //map
 L.mapbox.accessToken = "pk.eyJ1IjoiY2hhc2VncnViZXIiLCJhIjoidV9tdHNYSSJ9.RRyvDLny4YwDwzPCeOJZrA";
 var features = [
-  <% @locations.each do |location| %>
+  <% @events.each do |event| %>
   { "type": "Feature",
-    "geometry": {"type": "Point", "coordinates": [<%= location.longitude %>, <%= location.latitude %>]},
+    "geometry": {"type": "Point", "coordinates": [<%= event.location.longitude %>, <%= event.location.latitude %>]},
     "properties": {
-      "name":"<%= location.name %>",
-      "address":"<%= location.address %>"
+      "title":"<%= event.title %>",
+      "location":"<%= event.location.name %>",
+      "address":"<%= event.location.address %>",
+      "tags":[<% event.tags.each do |tag| %>
+          "<%= tag.tag %>",
+        <% end %>]
     }
   },
 <% end %>
@@ -124,6 +127,15 @@ map.fitBounds(events.getBounds())
 //         maxClusterRadius:100
 //     });
 
+function generatePopup(pt){
+  console.log(pt);
+  var popup = "<p>"+pt.feature.properties.title+"</p>";
+  popup += "<p>"+pt.feature.properties.location+"</p>";
+  popup += "<p>"+pt.feature.properties.address+"</p>";
+  popup += '<a style="height:10px;width:10px;background:red;" rel="nofollow" data-method="put" href="/events/211/upvote">UPVOTE 211</a>'
+  return popup
+}
+
 //load and style map data
 events.eachLayer(function(pt){
   var marker = L.marker([pt.feature.geometry.coordinates[1],pt.feature.geometry.coordinates[0]])
@@ -133,7 +145,7 @@ events.eachLayer(function(pt){
         iconSize:[20,20],
         popupAnchor:[-3,-10]
       })
-    ).bindPopup(pt.feature.properties.name)
+    ).bindPopup(generatePopup(pt))
     .addTo(map);
 
   // clusters.addLayer(pt)

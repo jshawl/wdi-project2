@@ -147,8 +147,8 @@ events.eachLayer(function(pt){
       L.divIcon({
         className: "eventMarker",
         iconSize:[
-          5+(parseInt(pt.feature.properties.attendees)/<%= @max %>*30)
-          ,5+(parseInt(pt.feature.properties.attendees)/<%= @max %>*30)
+          5+(parseInt(pt.feature.properties.attendees)/(<%= @max %>)*30)
+          ,5+(parseInt(pt.feature.properties.attendees)/(<%= @max %>)*30)
         ],
         popupAnchor:[0,-10]
       })

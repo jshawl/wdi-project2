@@ -1,3 +1,15 @@
+<div id='tags' class='tags dark cf'>
+  <% @recent_taggings.each do |tag| %>
+  <div class="tag right btn">
+    <%= tag[:tag].tag %>
+    <% if tag[:count] > 1 %>
+      <%=  "x#{tag[:count]}" %>
+    <% end %>
+  </div>
+  <% end %>
+</div>
+
+
 <div id='newEvent' class='form-show btn'>Create an Event</div>
 <% if @events %>
 <div class='list dark'>
@@ -41,6 +53,7 @@
 <% end %>
 <div id='map' class='map'></div>
 <div id='newLocation' class='form-show btn'>Add a Location</div>
+
 <div class="form-container hide">
   <div class='inner-form event-form'>
     <%= render partial: "form" %>

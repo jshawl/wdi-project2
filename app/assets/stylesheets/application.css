@@ -210,9 +210,13 @@ footer{
 }
 .tags{
   margin:2rem;
+  height:auto;
 }
 .tag{
   display:inline;
+}
+.tag.right{
+  float:right;
 }
 #tag-form{
   float:right;

@@ -5,7 +5,12 @@ class EventsController < ApplicationController
     @events = Event.all.where("created_at >= ?",Time.now.beginning_of_day.in_time_zone("UTC"))
       .where("created_at < ?", Time.now.in_time_zone("UTC"))
       .order(when: :desc)
+
     @locations = @events.map(&:location)
+    today_taggings = Tagging.all.where("created_at >= ?",Time.now.beginning_of_day.in_time_zone("UTC"))
+      .where("created_at < ?", Time.now.in_time_zone("UTC"))
+    today_tags = today_taggings.uniq.pluck(:tag_id)
+    @recent_taggings = today_tags.map{|tg|{tag:Tag.find(tg),count:today_taggings.where(tag:tg).length}}
   end
 
   def create

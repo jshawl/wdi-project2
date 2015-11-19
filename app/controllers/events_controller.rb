@@ -2,8 +2,8 @@ class EventsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @events = Event.all.where("created_at >= ?", Time.now.beginning_of_day)
-      .where("created_at < ?", Time.now)
+    @events = Event.all.where("created_at >= ?",Time.now.beginning_of_day.in_time_zone("UTC"))
+      .where("created_at < ?", Time.now.in_time_zone("UTC"))
       .order(when: :desc)
     @locations = @events.map(&:location)
   end

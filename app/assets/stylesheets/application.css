@@ -319,6 +319,15 @@ form input[type=submit]{
   top: 50%;
   transform: translateY(-50%);
 }
+.popup-vote{
+  background:black;
+  margin:0 auto;
+  text-align:center;
+}
+.popup-vote .votes{
+  transform:none;
+  top:0;
+}
 .votes a{
   display:block;
   height:0;

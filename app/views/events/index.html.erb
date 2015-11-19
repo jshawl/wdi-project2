@@ -137,12 +137,9 @@ function generatePopup(pt){
   popup += "<p>"+pt.feature.properties.location+"</p>";
   popup += "<p>"+pt.feature.properties.address+"</p>";
   var vote = document.getElementById('v'+pt.feature.properties.event_id);
-  // console.log(vote.innerHTML);
-  // popup += "<div class='popup votes' style='border:1px solid red'>";
+  popup += "<div class='popup-vote'>";
   popup += vote.innerHTML;
-  // popup += "</div>"
-  // popup += '<a style="height:10px;width:10px;background:red;" rel="nofollow" data-method="put" href="/events/'+pt.feature.properties.event_id+'/upvote">UPVOTE</a>';
-  // popup += '<a style="height:10px;width:10px;background:red;" rel="nofollow" data-method="put" href="/events/'+pt.feature.properties.event_id+'/downvote">downVOTE</a>';
+  popup += "</div>"
   return popup
 }
 

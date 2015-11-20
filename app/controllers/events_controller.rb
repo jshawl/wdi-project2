@@ -2,17 +2,12 @@ class EventsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @events = Event.all.where("created_at >= ?",Time.now.beginning_of_day.in_time_zone("UTC"))
-      .where("created_at < ?", Time.now.in_time_zone("UTC"))
-      .order(when: :desc)
-
+    @events = Event.all.where("created_at >= ?",Time.now.beginning_of_day.in_time_zone("UTC")).where("created_at < ?", Time.now.in_time_zone("UTC")).order(when: :desc)
     ## so that there's something to prevent the map from erroring out
-    if !@events
-      @events = Event.last(2)
+    if @events == []
+      @events = Event.all.order(when: :desc).last(2)
     end
     att = @events.map{|e| e.users.size}
-    # vote = @events.map{|e| e.get_upvotes.size - e.get_downvotes.size}
-    # t = @events.map{|e| e.votes_for.size}
     @max = att.max
     @locations = @events.map(&:location)
     today_taggings = Tagging.all.where("created_at >= ?",Time.now.beginning_of_day.in_time_zone("UTC"))

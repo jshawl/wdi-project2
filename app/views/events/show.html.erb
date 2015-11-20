@@ -3,9 +3,9 @@
   <h3 class='info'><%= @event.location.name %> <%= @event.when.strftime("at %l:%M%p") %></h3>
   <h3 class='info'><%= @event.location.address %></h3>
   <% if @event.owner %>
-  <h3 class='info'>Proposed by: <%= @event.owner.username %></h3>
+  <h3 class='info'>Proposed by: <%= link_to @event.owner.username, @event.owner, class:'page-link' %></h3>
   <% end %>
-  <%= link_to "back",@back, class:'btn top-right' %>
+  <%= link_to "back",events_path, class:'btn top-right' %>
 </div>
   <div id='tags' class='tags dark cf'>
     <div id="tag-form">

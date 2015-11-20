@@ -2,10 +2,10 @@ class EventsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @events = Event.all.where("created_at >= ?",Time.now.beginning_of_day.in_time_zone("UTC")).where("created_at < ?", Time.now.in_time_zone("UTC")).order(when: :desc)
+    @events = Event.all.where("created_at >= ?",Time.now.beginning_of_day.in_time_zone("UTC")).where("created_at < ?", Time.now.in_time_zone("UTC")).order(when: :asc)
     ## so that there's something to prevent the map from erroring out
     if @events == []
-      @events = Event.all.order(when: :desc).last(2)
+      @events = Event.all.order(when: :asc).last(2)
     end
     att = @events.map{|e| e.users.size}
     @max = att.max
@@ -47,7 +47,6 @@ class EventsController < ApplicationController
     }
     uniq_tags = @event.tags.uniq{ |t| t }
     @tags = uniq_tags.map{|tg|{tag:tg,count:Tagging.where(event:@event,tag:tg).length}}
-    @back = :back
     @events = Event.all.where("created_at >= ?",Time.now.beginning_of_day.in_time_zone("UTC"))
       .where("created_at < ?", Time.now.in_time_zone("UTC"))
       .order(when: :desc)

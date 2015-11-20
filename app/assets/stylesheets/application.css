@@ -10,19 +10,19 @@ body{
   background: -webkit-linear-gradient(
     rgba(0,0,0,0.55),
     rgba(0, 0, 0,0.55)),
-  url(tex2res4)repeat;
+  url('tex2res4.png')repeat;
   background: -o-linear-gradient(
     rgba(0,0,0,0.55),
     rgba(0, 0, 0,0.55)),
-  url(tex2res4)repeat;
+  url('tex2res4.png')repeat;
   background: -moz-linear-gradient(
     rgba(0,0,0,0.55),
     rgba(0, 0, 0,0.55)),
-  url(tex2res4)repeat;
+  url('tex2res4.png')repeat;
   background: linear-gradient(
     rgba(0,0,0,0.55),
     rgba(0, 0, 0,0.55)),
-  url(tex2res4)repeat;
+  url('tex2res4.png')repeat;
   /*background pattern from subtlepatterns.com*/
 }
 i{

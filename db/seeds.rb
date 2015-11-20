@@ -16,7 +16,7 @@ User.create(username:"chase",email:"email@email.com",password:"password",
   last_name = Faker::Name.last_name
   User.create(
     :email => Faker::Internet.email(first_name + "." + last_name),
-    :password => Faker::Internet.password(8),
+    :password => "password",#Faker::Internet.password(8),
     :gender => ['m', 'f'].sample,
     :preference => ['m', 'f','b'].sample,
     :username => Faker::Internet.user_name(first_name + "." + last_name),

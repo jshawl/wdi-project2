@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 
   has_many :attendances, dependent: :destroy
   has_many :events, through: :attendances
-  has_many :taggings
+  has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
   has_many :active_relationships,  class_name:  "Following",
                                   foreign_key: "follower_id",

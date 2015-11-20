@@ -125,7 +125,7 @@ map.fitBounds(events.getBounds())
 
 function generatePopup(pt){
   // var popup = "<p class='title'>"+pt.feature.properties.title+"</p>";
-  var popup = "<p class='title'><a href='/events/"+pt.feature.properties.event_id+"'>"
+  var popup = "<p class='title'><a class='page-link' href='/events/"+pt.feature.properties.event_id+"'>"
   popup += pt.feature.properties.title+"</a></p>"
   popup += "<p>"+pt.feature.properties.location+"</p>";
   popup += "<p>"+pt.feature.properties.address+"</p>";

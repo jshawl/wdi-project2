@@ -1,10 +1,19 @@
-<h2><%= @user.username %></h2>
+<div class="event-info dark">
+  <h2 class='title'><%= @user.username %></h2>
+  <% if @user.attendances.last %>
+  <h3 class='info'>
+    Last Attended: <%= @user.attendances.last.event.title %> on
+    <%= @user.attendances.last.event.when.strftime("%m/%d/%Y") %>
+  </h3>
+  <% end %>
+  <%= link_to "back",@back, class:'btn top-right' %>
+</div>
 
-<h4>Followers</h4>
-<div class='list'>
+<h2 class='title'>Followers</h2>
+<div class='list dark no-clear'>
   <% @followers.each do |person| %>
   <div class='list-item'>
-    <%= link_to person.username,person %>
+    <p class='person'><%= link_to person.username,person, class:'page-link' %></p>
     <% if current_user.following.include?(person) %>
       <%= link_to "Unfollow",unfollow_user_path(person), :method => :post, class:'btn' %>
     <% else %>
@@ -13,11 +22,12 @@
   </div>
   <% end %>
 </div>
-<h4>Following</h4>
-<div class='list'>
+
+<h2 class='title'>Following</h2>
+<div class='list dark no-clear'>
   <% @following.each do |person| %>
   <div class='list-item'>
-    <%= link_to person.username,person %>
+    <p class='person'><%= link_to person.username,person, class:'page-link' %></p>
     <% if current_user.following.include?(person) %>
       <%= link_to "Unfollow",unfollow_user_path(person), :method => :post, class:'btn' %>
     <% else %>
@@ -26,11 +36,14 @@
   </div>
   <% end %>
 </div>
-<h4>Events</h4>
-<div class='list'>
+
+<h2 class='title'>Events</h2>
+<div class='list dark no-clear'>
   <% @events.each do |event| %>
-  <p><%= link_to event.title,event,class: 'event-title' %></p>
-  <p><%= event.location.name %></p>
-  <p><%= event.when.strftime("at%l:%M%p") %></p>
+  <div class='list-item'>
+    <p><%= link_to event.title,event,class:'page-link' %></p>
+    <p><%= event.location.name %></p>
+    <p><%= event.when.strftime("%m/%d/%Y at %l:%M%p") %></p>
+  </div>
   <% end %>
 </div>

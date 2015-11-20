@@ -154,6 +154,10 @@ footer{
   height:600px;
   overflow-y:scroll;
 }
+.no-clear{
+  clear:none;
+  text-align: center;
+}
 .list-item{
   position:relative;
   padding:0.6rem;
@@ -223,6 +227,7 @@ footer{
 }
 .title{
   font-size:3.2rem;
+  color:orange;
 }
 .info{
   font-size:2.4rem;

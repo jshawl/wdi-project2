@@ -19,7 +19,7 @@ User.create(username:"chase",email:"email@email.com",password:"password",
     :password => "password",#Faker::Internet.password(8),
     :gender => ['m', 'f'].sample,
     :preference => ['m', 'f','b'].sample,
-    :username => Faker::Internet.user_name(first_name + "." + last_name),
+    :username => Faker::Internet.user_name,
     :dob => Faker::Time.between(18.years.ago, 30.years.ago)
   )
 end

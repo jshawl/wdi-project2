@@ -73,7 +73,10 @@ class EventsController < ApplicationController
 
   def attend
     @event = Event.find(params[:id])
-    @event.users << current_user
+    existing_attendance = Attendance.find_by(event: @event, user:current_user)
+    unless existing_attendance
+      @event.users << current_user
+    end
     redirect_to @event
   end
 

@@ -154,9 +154,8 @@ footer{
   height:600px;
   overflow-y:scroll;
 }
-.no-clear{
-  clear:none;
-  text-align: center;
+.contained-list{
+  width:100%;
 }
 .list-item{
   position:relative;
@@ -164,6 +163,10 @@ footer{
   text-align: center;
   border-bottom:2px solid white;
   border-collapse: collapse;
+}
+.list-container{
+  float:left;
+  margin:2rem 3%;
 }
 .event{
   padding-left:2.4rem;

@@ -20,16 +20,15 @@ Rails.application.routes.draw do
     member do
       put :unvote
     end
-    resources :tags do
+    resources :tags, only: [:create, :new] do
       member do
         post :duplicate
         post :untag
       end
     end
-    resources :locations
   end
 
-  resources :users, only: [:index, :show] do
+  resources :users, only: [:show] do
     member do
       get :following, :followers
       post :follow, :unfollow
@@ -37,9 +36,6 @@ Rails.application.routes.draw do
   end
 
   resources :locations, only: [:index, :create, :new, :destroy]
-
-  # resources :followings, only: [:create, :destroy]
-
 
 
 

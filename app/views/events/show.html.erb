@@ -34,9 +34,9 @@
     <% @attendees.each do |person| %>
     <div class='list-item'>
       <p class='person'><%= link_to person.username,person, class:'page-link' %></p>
-      <% if current_user.following.include?(person) %>
+      <% if current_user.following.include?(person) && person != current_user %>
         <%= link_to "Unfollow",unfollow_user_path(person), :method => :post, class:'btn' %>
-      <% else %>
+      <% elsif person != current_user %>
         <%= link_to "Follow",follow_user_path(person), :method => :post, class:'btn' %>
       <% end %>
     </div>

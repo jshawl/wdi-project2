@@ -7,8 +7,8 @@ class EventsController < ApplicationController
     if @events == []
       @events = Event.all.order(when: :asc).last(2)
     end
-    att = @events.map{|e| e.users.size}
-    @max = att.max
+    attendances = @events.map{|e| e.users.size}
+    @max = attendances.max
     @locations = @events.map(&:location)
     today_taggings = Tagging.all.where("created_at >= ?",Time.now.beginning_of_day.in_time_zone("UTC"))
       .where("created_at < ?", Time.now.in_time_zone("UTC"))

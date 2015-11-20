@@ -6,7 +6,7 @@
     <%= @user.attendances.last.event.when.strftime("%m/%d/%Y") %>
   </h3>
   <% end %>
-  <%= link_to "back",@back, class:'btn top-right' %>
+  <%= link_to "back",event_path(session[:event_id]), class:'btn top-right' %>
 </div>
 
 <div class="list-container">

@@ -7,7 +7,7 @@ class EventsController < ApplicationController
       .order(when: :desc)
 
     ## so that there's something to prevent the map from erroring out
-    unless @events
+    if !@events
       @events = Event.last(2)
     end
     att = @events.map{|e| e.users.size}

@@ -4,6 +4,7 @@ class Tagging < ActiveRecord::Base
   belongs_to :user
 
   validates :event, presence: true
-  validates :tag, presence: true
+  validates :tag, presence: true, allow_nil: false
   validates :user, presence: true
+
 end

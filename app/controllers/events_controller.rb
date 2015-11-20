@@ -12,7 +12,7 @@ class EventsController < ApplicationController
     @locations = @events.map(&:location)
     today_taggings = Tagging.all.where("created_at >= ?",Time.now.beginning_of_day.in_time_zone("UTC"))
       .where("created_at < ?", Time.now.in_time_zone("UTC"))
-    today_tags = today_taggings.uniq.pluck(:tag_id)
+    today_tags = today_taggings.uniq.pluck(:tag_id).compact
     @recent_taggings = today_tags.map{|tg|{tag:Tag.find(tg),count:today_taggings.where(tag:tg).length}}
   end
 

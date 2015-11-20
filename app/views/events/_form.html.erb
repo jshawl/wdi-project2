@@ -1,7 +1,8 @@
 <%= form_for @event||Event.new do |f| %>
   <%= f.text_field :title, placeholder:"What's going on?" %>
 
-  <%= f.text_field :location_id, id:"location-field",placeholder:"Where?" %>
+  <%= f.label :when, "Where:" %>
+  <%= f.text_field :location_id, id:"location-field" %>
 
   <%= f.label :when, "When:" %>
   <%= f.time_field :when %>

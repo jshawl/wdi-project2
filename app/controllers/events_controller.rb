@@ -3,8 +3,9 @@ class EventsController < ApplicationController
 
   def index
     @events = Event.all.where("created_at >= ?",Time.now.beginning_of_day.in_time_zone("UTC")).where("created_at < ?", Time.now.in_time_zone("UTC")).order(when: :asc)
+    # @events = Event.created_today
     ## so that there's something to prevent the map from erroring out
-    if @events == []
+    if @events == [] # or .empty?
       @events = Event.all.order(when: :asc).last(2)
     end
     attendances = @events.map{|e| e.users.size}
@@ -13,6 +14,7 @@ class EventsController < ApplicationController
     today_taggings = Tagging.all.where("created_at >= ?",Time.now.beginning_of_day.in_time_zone("UTC"))
       .where("created_at < ?", Time.now.in_time_zone("UTC"))
     today_tags = today_taggings.uniq.pluck(:tag_id).compact
+    # @recent_taggings = Tagging.recent
     @recent_taggings = today_tags.map{|tg|{tag:Tag.find(tg),count:today_taggings.where(tag:tg).length}}
   end
 
@@ -29,6 +31,7 @@ class EventsController < ApplicationController
   def edit
     @event = Event.find(params[:id])
     unless @event.owner == current_user
+      # maybe with a flash notice, too?
       redirect_to @event
     end
   end
@@ -39,9 +42,11 @@ class EventsController < ApplicationController
     @attendees = @event.users
     uniq_tags = @event.tags.uniq{ |t| t }
     @tags = uniq_tags.map{|tg|{tag:tg,count:Tagging.where(event:@event,tag:tg).length}}
+    # @tags = @event.uniq_tags
     @events = Event.all.where("created_at >= ?",Time.now.beginning_of_day.in_time_zone("UTC"))
       .where("created_at < ?", Time.now.in_time_zone("UTC"))
       .order(when: :desc)
+    # if you create that model method, you can reuse here too
   end
 
   def update
@@ -65,6 +70,7 @@ class EventsController < ApplicationController
   def attend
     @event = Event.find(params[:id])
     existing_attendance = Attendance.find_by(event: @event, user:current_user)
+    # maybe find_or_create_by...
     unless existing_attendance
       @event.users << current_user
     end
@@ -89,6 +95,8 @@ class EventsController < ApplicationController
     @event.downvote_by current_user
     if @event.get_upvotes.size-@event.get_downvotes.size <= -10
       destroy_by_vote(@event)
+      # you can do this automitically with a before_save on Event model
+      # check out http://api.rubyonrails.org/classes/ActiveRecord/Callbacks.html
     end
     redirect_to :back
   end

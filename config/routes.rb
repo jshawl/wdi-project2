@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     member do
       put :unvote
     end
+    # excellent!!
     resources :tags, only: [:create, :new] do
       member do
         post :duplicate

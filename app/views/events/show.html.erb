@@ -16,6 +16,7 @@
       <% @tags.each do |tag| %>
       <div class='tag'>
         <% if Tagging.find_by(user:current_user,event:@event,tag:tag[:tag]) %>
+	  <!-- avoid calling model methods from a view. Instead, create an instance variable in the controller -->
           <% tagC = (tag[:count]>1)? "x#{tag[:count]}": '' %>
           <%= link_to "#{tag[:tag][:tag]} #{tagC}",untag_event_tag_path(@event,tag[:tag]),
           :method => :post, class:'btn' %>
@@ -35,6 +36,8 @@
     <div class='list-item'>
       <p class='person'><%= link_to person.username,person, class:'page-link' %></p>
       <% if current_user.following.include?(person) && person != current_user %>
+	<!-- would be nice if code was `current_user.follows?(person)` -->
+	<!-- to do this, add an instance method to user model -->
         <%= link_to "Unfollow",unfollow_user_path(person), :method => :post, class:'btn' %>
       <% elsif person != current_user %>
         <%= link_to "Follow",follow_user_path(person), :method => :post, class:'btn' %>
@@ -56,6 +59,8 @@
 L.mapbox.accessToken = "pk.eyJ1IjoiY2hhc2VncnViZXIiLCJhIjoidV9tdHNYSSJ9.RRyvDLny4YwDwzPCeOJZrA";
 var features = [
 
+// you mentioned this in the video, but please move to external js file
+// or create JSON endpoint and fetch this data using AJAX.
   <% @events.each do |event| %>
   { "type": "Feature",
     "geometry": {"type": "Point", "coordinates": [<%= event.location.longitude %>, <%= event.location.latitude %>]},

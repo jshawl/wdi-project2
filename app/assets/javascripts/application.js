@@ -15,3 +15,6 @@
 //= require turbolinks
 //= require_tree .
 //= require jquery.tokeninput
+
+// I thought the tagging / untagging was using JS.
+// How does tagging work without updating the URL?
